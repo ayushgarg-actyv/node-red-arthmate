@@ -1,0 +1,323 @@
+[
+    {
+        "id": "330c5d9d398acad5",
+        "type": "tab",
+        "label": "Read Email from Outlook",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ce71966e826c3022",
+        "type": "node-red-contrib-graph-oauth-login",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "scope": "https://graph.microsoft.com/.default",
+        "redirecturi": "",
+        "code": "",
+        "encoding": false,
+        "logintype": "Application",
+        "refreshtimer": "11",
+        "credentials": {},
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "9932cf512576575c"
+            ]
+        ]
+    },
+    {
+        "id": "e7f888bde985d836",
+        "type": "inject",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "ce71966e826c3022"
+            ]
+        ]
+    },
+    {
+        "id": "9932cf512576575c",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "Get All Messages",
+        "func": "let data=msg.payload;\nflow.set(\"token\",data);\nlet userID =\"1870cd49-a831-4b52-ba5e-b680441f9f70\"\nlet sender =\"from:gargayush456@gmail.com\"\n\nmsg.url = `https://graph.microsoft.com/v1.0/users/${userID}/messages?$search=\"from:gargayush456@gmail.com\"&?$filter=isRead ne true`\nmsg.method=\"GET\";\nmsg.headers={\n    \"Authorization\":`${data.access_token}`\n}\nconsole.log(msg.url);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "b688c76f94e69988"
+            ]
+        ]
+    },
+    {
+        "id": "b688c76f94e69988",
+        "type": "http request",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "credentials": {},
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "f7ee57f4049d4fe7"
+            ]
+        ]
+    },
+    {
+        "id": "180450dd827a9bd4",
+        "type": "inject",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f7ee57f4049d4fe7",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "77eba3647569b879",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "Searching Attachment",
+        "func": "let data = msg.payload;\nlet token=flow.get(\"token\");\nflow.set(\"msg\",data);\nmsg.url = `https://graph.microsoft.com/v1.0/users/1870cd49-a831-4b52-ba5e-b680441f9f70/messages/${data.id}/attachments`\nmsg.method = \"GET\";\nmsg.headers = {\n    \"Authorization\": `${token.access_token}`\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "94290557d0118fcc"
+            ]
+        ]
+    },
+    {
+        "id": "94290557d0118fcc",
+        "type": "http request",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "43696fbdd1f182fb",
+                "35f8ae484ca09c36"
+            ]
+        ]
+    },
+    {
+        "id": "43696fbdd1f182fb",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6ad04ec9ea34da77",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "each Msg",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.value.length; index++) {\n    node.send({payload:data.value[index]});\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "77eba3647569b879"
+            ]
+        ]
+    },
+    {
+        "id": "063b81d1fb5e6fac",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 41",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "225b4580a01c8cde",
+        "type": "book",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "raw": false,
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "31e50b51027b0ce9"
+            ]
+        ]
+    },
+    {
+        "id": "31e50b51027b0ce9",
+        "type": "sheet",
+        "z": "330c5d9d398acad5",
+        "name": "Cashfree",
+        "sheetName": "Sheet1",
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "bc265486a98f3849"
+            ]
+        ]
+    },
+    {
+        "id": "bc265486a98f3849",
+        "type": "sheet-to-json",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 690,
+        "y": 380,
+        "wires": [
+            [
+                "063b81d1fb5e6fac"
+            ]
+        ]
+    },
+    {
+        "id": "35f8ae484ca09c36",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "function 16",
+        "func": "let data=msg.payload;\n\nmsg.payload = data.value[0].contentBytes.toString();\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "75e1404272b71f05"
+            ]
+        ]
+    },
+    {
+        "id": "75e1404272b71f05",
+        "type": "base64",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "225b4580a01c8cde"
+            ]
+        ]
+    }
+]

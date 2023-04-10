@@ -1,0 +1,697 @@
+[
+    {
+        "id": "960d24c4a5017d1d",
+        "type": "tab",
+        "label": "Payment: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4e5ada0d49b1a62b",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "47381047c94dcdd7"
+            ]
+        ]
+    },
+    {
+        "id": "7e66acb1ddd3eb95",
+        "type": "alafile in",
+        "z": "960d24c4a5017d1d",
+        "name": "cashfree file",
+        "filename": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red\\Subscription Payment Reports",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 1070,
+        "y": 80,
+        "wires": [
+            [
+                "4a98675c548b0d07"
+            ]
+        ]
+    },
+    {
+        "id": "4a2ccbfaa39f5eb6",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "47381047c94dcdd7",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "Authorization Paylater",
+        "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.url = \"https://actyv-platform-admin-service.qa.actyv.com/api/user/authenticateUser\";\nmsg.payload = {\n    \"email\": \"surajkumar@aplapollo.com\",//Arthmate Email\n    \"password\": \"890ioP@12\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 80,
+        "wires": [
+            [
+                "30cf75c220224a52"
+            ]
+        ]
+    },
+    {
+        "id": "30cf75c220224a52",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 80,
+        "wires": [
+            [
+                "17b492a58984ad25"
+            ]
+        ]
+    },
+    {
+        "id": "17b492a58984ad25",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "token mapping",
+        "func": "flow.set(\"token\",msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 80,
+        "wires": [
+            [
+                "7e66acb1ddd3eb95"
+            ]
+        ]
+    },
+    {
+        "id": "4a98675c548b0d07",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "each row in excel",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.length; index++) {\n    node.send({payload:data[index]});  \n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "e301521247ba984f"
+            ]
+        ]
+    },
+    {
+        "id": "e301521247ba984f",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "searching fromm UMRN",
+        "func": "flow.set(\"trx_details\",msg.payload);\nconst token=flow.get(\"token\");\nflow.set(\"transaction_data\",msg.payload);\nlet data = msg.payload;\n\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`\n}\nmsg.url =`https://actyv-platform-paylater-service-v1.dev.actyv.com/v1/mandates?mandateReferenceNo=${data.UMRN}`;\nmsg.method=\"GET\";\nmsg.payload={};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "5dfa232b9e286e3a"
+            ]
+        ]
+    },
+    {
+        "id": "5dfa232b9e286e3a",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "GET BP",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 180,
+        "wires": [
+            [
+                "0a7c4f317d72cd7b"
+            ]
+        ]
+    },
+    {
+        "id": "0a7c4f317d72cd7b",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "searching loan term",
+        "func": "let data=msg.payload;\nconst token=flow.get(\"token\");\n\nmsg.url =\"https://actyv-platform-paylater-service-v1.qa.actyv.com/v1/loan-terms/fetch\";\nmsg.method=\"POST\";\nmsg.headers={\n    \"Aurhorization\":`Bearer ${token.idToken}`\n}\nmsg.payload={\n    \"borrowerID\": data.businessPartnerID \n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "d65001b9f0248d22"
+            ]
+        ]
+    },
+    {
+        "id": "d65001b9f0248d22",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "get loan term",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [
+                "8d2224e2b6a73d46"
+            ]
+        ]
+    },
+    {
+        "id": "8d2224e2b6a73d46",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "creating loan-payment",
+        "func": "let data=msg.payload;\nconst token=flow.get(\"token\");\nconst transaction_data = flow.get(\"transaction_data\");\n\nconst loan_id = data.crnNumber.split('|');\n\nmsg.url =\"https://actyv-platform-paylater-service-v1.qa.actyv.com/v1/loan-payment\";\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`\n};\nmsg.payload={\n    \"loanID\": \"xxxx-xxxx-xxxx\", //data.loanid[0]\n    \"drawdownID\": \"xxxx-xxxx-xxxx\",\n    \"amount\": 1000000, //Number(`${transaction_data.Amount}`)\n    \"date\": \"2011-04-11T10:20:30Z\",\n    \"paymentMethod\": \"Cash\", //${ transaction_data.Payment Mode}\n    \"fromAccount\": \"123412341234\", //${ transaction_data.Bank Account Number}\n    \"principal\": 100000,//Number(`${transaction_data.Amount}`)\n    \"interest\": 0,\n    \"balance\": 0\n}\nmsg.method=\"POST\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 340,
+        "wires": [
+            [
+                "40540fd0ca61179b"
+            ]
+        ]
+    },
+    {
+        "id": "2f3a84524d390e27",
+        "type": "comment",
+        "z": "960d24c4a5017d1d",
+        "name": "gmail",
+        "info": "",
+        "x": 90,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e5c20a56a3a4f05a",
+        "type": "comment",
+        "z": "960d24c4a5017d1d",
+        "name": "outllook",
+        "info": "",
+        "x": 70,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "40540fd0ca61179b",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 340,
+        "wires": [
+            [
+                "4a2ccbfaa39f5eb6"
+            ]
+        ]
+    },
+    {
+        "id": "10d52e235a58640f",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "required",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "c780cf1f0a288c72"
+            ]
+        ]
+    },
+    {
+        "id": "f5dbecada56cb090",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "10d52e235a58640f"
+            ]
+        ]
+    },
+    {
+        "id": "eaec5e6c0376ec75",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c780cf1f0a288c72",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 8",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg.attachments[0]);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 520,
+        "wires": [
+            [
+                "31865ab30fb6b82c"
+            ]
+        ]
+    },
+    {
+        "id": "31865ab30fb6b82c",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 10",
+        "func": "let data=msg.content;\n\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "7d8ea538a0378abe"
+            ]
+        ]
+    },
+    {
+        "id": "7d8ea538a0378abe",
+        "type": "book",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": false,
+        "x": 950,
+        "y": 520,
+        "wires": [
+            [
+                "5d504bbb97c750ed"
+            ]
+        ]
+    },
+    {
+        "id": "5d504bbb97c750ed",
+        "type": "sheet",
+        "z": "960d24c4a5017d1d",
+        "name": "OUTSTANDING",
+        "sheetName": "Sheet1",
+        "x": 500,
+        "y": 580,
+        "wires": [
+            [
+                "7565945a848b43a4"
+            ]
+        ]
+    },
+    {
+        "id": "7565945a848b43a4",
+        "type": "sheet-to-json",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 730,
+        "y": 580,
+        "wires": [
+            [
+                "eaec5e6c0376ec75"
+            ]
+        ]
+    },
+    {
+        "id": "fa7f09e3956783cf",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 900,
+        "wires": [
+            [
+                "0cc7f0451db7e05c"
+            ]
+        ]
+    },
+    {
+        "id": "0cc7f0451db7e05c",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "outlook.office365.com",
+        "useSSL": true,
+        "autotls": "always",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 430,
+        "y": 900,
+        "wires": [
+            [
+                "dbfe62b1643c1cd5"
+            ]
+        ]
+    },
+    {
+        "id": "273ecf328b5d191e",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "dbfe62b1643c1cd5",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "email filtering on cashfree email",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg.attachments[0]);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 900,
+        "wires": [
+            [
+                "88cf6d745eee06fa"
+            ]
+        ]
+    },
+    {
+        "id": "88cf6d745eee06fa",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "sending buffer for reading excel",
+        "func": "let data=msg.content;\n\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 900,
+        "wires": [
+            [
+                "daacae864f0666b5"
+            ]
+        ]
+    },
+    {
+        "id": "daacae864f0666b5",
+        "type": "book",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": false,
+        "x": 490,
+        "y": 980,
+        "wires": [
+            [
+                "09c112b2027054c0"
+            ]
+        ]
+    },
+    {
+        "id": "09c112b2027054c0",
+        "type": "sheet",
+        "z": "960d24c4a5017d1d",
+        "name": "Cashfree",
+        "sheetName": "Sheet1",
+        "x": 660,
+        "y": 980,
+        "wires": [
+            [
+                "4ecd5f19d96b3b56"
+            ]
+        ]
+    },
+    {
+        "id": "4ecd5f19d96b3b56",
+        "type": "sheet-to-json",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 850,
+        "y": 980,
+        "wires": [
+            [
+                "273ecf328b5d191e"
+            ]
+        ]
+    },
+    {
+        "id": "50824ac0c5840f4b",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "required",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 410,
+        "y": 800,
+        "wires": [
+            [
+                "56f7d828ecd01fe2"
+            ]
+        ]
+    },
+    {
+        "id": "dfafda9c687256f3",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 800,
+        "wires": [
+            [
+                "50824ac0c5840f4b"
+            ]
+        ]
+    },
+    {
+        "id": "ae4e324860eca9ce",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "56f7d828ecd01fe2",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 9",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 800,
+        "wires": [
+            [
+                "ae4e324860eca9ce"
+            ]
+        ]
+    }
+]

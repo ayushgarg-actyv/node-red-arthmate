@@ -1,0 +1,301 @@
+[
+    {
+        "id": "5f1d3c1c9df93591",
+        "type": "tab",
+        "label": "Status loan level: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d314dafeac5ab0d6",
+        "type": "inject",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "c8771255cb2072b2"
+            ]
+        ]
+    },
+    {
+        "id": "2f020f55e41a224f",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 100,
+        "wires": [
+            [
+                "78113ae4b869e918",
+                "7246ef9ded8092a5"
+            ]
+        ]
+    },
+    {
+        "id": "78113ae4b869e918",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "fetching loan-term from bankid",
+        "func": "flow.set(\"token\",msg.payload);\nconst token=msg.payload;\nconst PAYLATER_URL = env.get(\"PAYLATER_URL\");\nconst BANK_ID = env.get('BANK_ID');\n\nmsg.url =`${PAYLATER_URL}/v1/loan-terms/fetch`;\nmsg.method=\"POST\";\nmsg.payload = {\n    \"bankID\": BANK_ID,\n    \"toMask\": false\n}\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`,\n    \"bankid\": BANK_ID\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "d8699978b4e01c73"
+            ]
+        ]
+    },
+    {
+        "id": "d8699978b4e01c73",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 710,
+        "y": 180,
+        "wires": [
+            [
+                "9e02ae0afb9962d1",
+                "9cedb02742ba3ddd"
+            ]
+        ]
+    },
+    {
+        "id": "9cedb02742ba3ddd",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "for each loan term",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.length; index++) {\n    if (data[index].loanGrantStatus===\"APPROVED\")\n        node.send({payload:data[index]})\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "11c579f1976586d9"
+            ]
+        ]
+    },
+    {
+        "id": "11c579f1976586d9",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "fetching loan status",
+        "func": "msg.loan_term = msg.payload;\nconst data=msg.payload;\nlet loanid = data.crnNumber.split('|');\nconst BANK_URL = env.get('BANK_URL');\n\nmsg.url = `${BANK_URL}/api/credit-limit-data/${loanid[1]}`\nmsg.headers={\n    \"Authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoxMjUxNTIsImNvbXBhbnlfY29kZSI6IkFDVDAwNjIiLCJwcm9kdWN0X2lkIjoxMjU0MDUsInVzZXJfaWQiOjEzODgsInVzZXJfbmFtZSI6IlJhaiBWaWtyYW0gU2luZ2giLCJ0eXBlIjoiYXBpIiwibG9hbl9zY2hlbWFfaWQiOiIxMjU0MDQiLCJjcmVkaXRfcnVsZV9ncmlkX2lkIjpudWxsLCJhdXRvbWF0aWNfY2hlY2tfY3JlZGl0IjowLCJ0b2tlbl9pZCI6IjEyNTE1Mi0xMjU0MDUtMTY3NDExOTc5MjE3MSIsImVudmlyb25tZW50Ijoic2FuZGJveCIsImlhdCI6MTY3NDExOTc5Mn0.Ns_zmbALCnwM4gSqsyX7VmEdS53-yYkPXN1En-ZOOzc\",\n    \"company_code\": \"ACT0062\"\n}\nmsg.method=\"GET\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "dc3340a969190ffe"
+            ]
+        ]
+    },
+    {
+        "id": "dc3340a969190ffe",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 300,
+        "wires": [
+            [
+                "0de2baa24dceb295",
+                "df8350ba74e44b52"
+            ]
+        ]
+    },
+    {
+        "id": "ae10c010ad10eefc",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "0de2baa24dceb295",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "updating loan amount",
+        "func": "const token = flow.get(\"token\");\nlet loan_term=msg.loan_term;\nlet data = msg.payload;\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/update`;\nmsg.method = \"PATCH\";\nmsg.payload = {\n    \"loanTermsID\": loan_term.id,\n    \"loanAmount\": Number(msg.payload.data[\"Credit limit\"]) - Number(msg.payload.data[\"Available balance\"])\n};\nmsg.headers = {\n     \"Authorization\": `Bearer ${token.idToken}`,\n     \"bankID\":env.get('BANK_ID')\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "1ad21e0ef28d5f6c"
+            ]
+        ]
+    },
+    {
+        "id": "1ad21e0ef28d5f6c",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 360,
+        "wires": [
+            [
+                "ae10c010ad10eefc"
+            ]
+        ]
+    },
+    {
+        "id": "9e02ae0afb9962d1",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c8771255cb2072b2",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL')\nconst EMAIL=env.get(\"EMAIL\");\nconst PASSWORD = env.get(\"PASSWORD\")\n\n\nmsg.headers = {}\nmsg.method = \"POST\"\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,//Arthmate Email\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 100,
+        "wires": [
+            [
+                "2f020f55e41a224f"
+            ]
+        ]
+    },
+    {
+        "id": "df8350ba74e44b52",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7246ef9ded8092a5",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    }
+]

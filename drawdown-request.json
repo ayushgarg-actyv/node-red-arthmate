@@ -1,0 +1,554 @@
+[
+    {
+        "id": "11c67ca4c279e3fe",
+        "type": "tab",
+        "label": "Drawdown Request: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "93aa8635ec9c75c0",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Drawdown Mapping",
+        "func": "let drawdown_data = msg.drawdown_data;\nlet loanid = drawdown_data.loanTerm.crnNumber.split('|');\nconst BANK_URL = env.get('BANK_URL');\nconst BANK_TOKEN = env.get('BANK_TOKEN');\n\n\n\nmsg.payload= {\n    \"loan_id\": loanid[1],\n    // \"loan_id\":\"AMLERFBOP100000000798\",\n    \"no_of_emi\": \"1\",\n    \"drawdown_amount\": Number(`${drawdown_data.loanDrawdown.requestAmount}`),\n    \"net_drawdown_amount\": Number(`${drawdown_data.loanDrawdown.requestAmount}`),\n    \"usage_fees_including_gst\": \"0.0\"\n}\nmsg.url =`${BANK_URL}/api/record-drawdown-request`;\nmsg.headers = {\n    \"Authorization\": `Bearer ${BANK_TOKEN}`\n};\nmsg.method = \"POST\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "9d666d31961f0baa"
+            ]
+        ]
+    },
+    {
+        "id": "f893ae5487b86f4e",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Get drawdown for bank",
+        "func": "const PAYLATER_URL = env.get(\"PAYLATER_URL\")\n\n\nlet bankUniqueIdentifier = env.get('BANK_UNIQUE_IDENTIFIER'); //Arthmate ID\nlet data=msg.payload;\nflow.set(\"token\",data);\nmsg.headers = {\n    \"Authorization\": \"Bearer \" + data.idToken,\n    \"bankId\": env.get('BANK_ID')\n}\nmsg.method = \"PUT\"\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown/send-drawdowns-to-bank/`+bankUniqueIdentifier;\nconsole.log(PAYLATER_URL);\nconsole.log(msg.url);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "ef836c847f310ec0"
+            ]
+        ]
+    },
+    {
+        "id": "ef836c847f310ec0",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Requesting drawdown",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "a98c39701246622c",
+                "ab8691f4b0c32986"
+            ]
+        ]
+    },
+    {
+        "id": "ab8691f4b0c32986",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "loop for each invoice",
+        "func": "let data=msg.payload;\nfor (let index = 0; index < data.length ; index++) {\n    node.send(data[index]);\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 100,
+        "wires": [
+            [
+                "fbe2011347721b17"
+            ]
+        ]
+    },
+    {
+        "id": "fbe2011347721b17",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "each drawdown",
+        "func": "let data={...msg}\nmsg.drawdown_data=data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "93aa8635ec9c75c0"
+            ]
+        ]
+    },
+    {
+        "id": "cb9c42b9caa2fba3",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Header Post",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": true,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "company_code",
+                "valueType": "other",
+                "valueValue": "ACT0062"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 770,
+        "y": 420,
+        "wires": [
+            [
+                "74dff1d42989016f",
+                "3db3d57a1b76fe7a"
+            ]
+        ]
+    },
+    {
+        "id": "b7c233b48b6d35c3",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Headers Mapping",
+        "func": "let drawdown_data = msg.drawdown_data;\nlet loan_app_id = drawdown_data.loanTerm.bankProvidedLoanCode;\nlet data=msg.payload;\nlet res = msg.drawdown_response;\nconst BANK_URL = env.get('BANK_URL')\nconst BANK_TOKEN = env.get('BANK_TOKEN')\n\nmsg.payload= {\n    \"loan_app_id\": loan_app_id ,\n    \"drawdown_request_id\": res.data.drawdown_request_id  ,\n    \"doc\":[\n        {\n            \"code\":\"102\",\n            \"base64pdfencodedfile\": data\n        }\n    ]\n}\nmsg.headers = {\n    \"Authorization\": `Bearer ${BANK_TOKEN}`\n};\nmsg.method = \"POST\";\nmsg.url = `${BANK_URL}/api/drawdown-document`;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 420,
+        "wires": [
+            [
+                "cb9c42b9caa2fba3"
+            ]
+        ]
+    },
+    {
+        "id": "b3e6f344018c5e36",
+        "type": "inject",
+        "z": "11c67ca4c279e3fe",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "7b8e3c7bee39ae34"
+            ]
+        ]
+    },
+    {
+        "id": "74dff1d42989016f",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0be9b59d576bcd36",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "drawdown respose id",
+        "func": "msg.drawdown_response=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "dce050736d01772d"
+            ]
+        ]
+    },
+    {
+        "id": "dce050736d01772d",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "invoice generation",
+        "func": "let data = msg.drawdown_data;\nlet obj=[\n    `\n\n    <div id=\"invoice-POS\">\n\n        <center id=\"top\">\n            <div class=\"logo\"></div>\n            <div class=\"info\">\n                <h2>Invoice</h2>\n            </div>\n        </center>\n\n\n\n        <div id=\"table\">\n            <table style=\"text-align: left; width: 60%; border: 1px solid black;\">\n                <tr>\n                    <th style=\"padding: 10px;\">Invoice Number</th>\n                    <td>${data.invoice.finalInvoiceNo}</td>\n                </tr>\n\n                <tr>\n                    <th style=\"padding: 10px;\">Invoice Generation Date</th>\n                    <td>${data.invoice.documentDate}</td>\n                </tr>\n\n                <tr>\n                    <th style=\"padding: 10px;\">Due Date</th>\n                    <td>${data.invoice.dueDate}</td>\n                </tr>\n                <tr>\n                    <th style=\"padding: 10px;\">Anchor Code</th>\n                    <td>${data.invoice.dueDate}</td>\n                </tr>\n                <tr>\n                    <th style=\"padding: 10px;\">Total Invoice</th>\n                    <td>${data.invoice.netAmount}</td>\n                </tr>\n\n            </table>\n        </div>\n\n    `\n]\nmsg.payload =obj;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "nodeHtmlParser",
+                "module": "node-html-parser"
+            }
+        ],
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "c4dee0c6c03f631d"
+            ]
+        ]
+    },
+    {
+        "id": "c4dee0c6c03f631d",
+        "type": "html-to-pdf",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "format": "A4",
+        "zoom": 100,
+        "orientation": "Portrait",
+        "width": "",
+        "height": "",
+        "marginTop": 1,
+        "marginLeft": 1,
+        "marginBottom": 1,
+        "marginRight": 1,
+        "marginTopUnits": "cm",
+        "marginLeftUnits": "cm",
+        "marginBottomUnits": "cm",
+        "marginRightUnits": "cm",
+        "omitBackground": false,
+        "printGraphics": true,
+        "x": 910,
+        "y": 280,
+        "wires": [
+            [
+                "88fe56913f621777"
+            ]
+        ]
+    },
+    {
+        "id": "88fe56913f621777",
+        "type": "base64",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "79a229cde47c69ea",
+                "b7c233b48b6d35c3"
+            ]
+        ]
+    },
+    {
+        "id": "7b8e3c7bee39ae34",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL')\nconst EMAIL=env.get(\"EMAIL\");\nconst PASSWORD = env.get(\"PASSWORD\")\n\nconsole.log(ADMIN_URL);\n\nmsg.headers = {}\nmsg.method = \"POST\"\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,//Arthmate Email\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 40,
+        "wires": [
+            [
+                "32204f1c3dfc9296"
+            ]
+        ]
+    },
+    {
+        "id": "32204f1c3dfc9296",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 40,
+        "wires": [
+            [
+                "f893ae5487b86f4e"
+            ]
+        ]
+    },
+    {
+        "id": "cd145f88e52e80c6",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 500,
+        "wires": [
+            [
+                "a82d1779214894df",
+                "389022340336084f"
+            ]
+        ]
+    },
+    {
+        "id": "3db3d57a1b76fe7a",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "updateDrawdownReq",
+        "func": "let drawdown_response = msg.drawdown_response;\nlet drawdown_data = msg.drawdown_data;\nconst token=flow.get('token');\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown`\nmsg.method = 'PATCH'\nmsg.headers={\n    \"Authorization\": `Bearer ${token.idToken}`\n}\nmsg.payload = {\n    requestUniqueCode: drawdown_data.loanDrawdown.requestUniqueCode,\n    drawdownStatus: 'inProgress',\n    bankProvidedDrawdownCodes: drawdown_response.data.drawdown_request_id.toString() \n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "cd145f88e52e80c6"
+            ]
+        ]
+    },
+    {
+        "id": "389022340336084f",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "updateHoldAmountReq",
+        "func": "let drawdown_data = msg.drawdown_data;\nconst token=flow.get('token');\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/hold-amount`\nmsg.method = 'POST'\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`\n}\n\nmsg.payload = {\n    \"loanDetails\": [\n        {\n            \"loanID\": msg.payload.loanID,\n            \"holdAmount\": Number(drawdown_data.loanDrawdown.requestAmount)\n        }\n    ],\n    \"update\": true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 580,
+        "wires": [
+            [
+                "6735d205dd36b66d"
+            ]
+        ]
+    },
+    {
+        "id": "6735d205dd36b66d",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "6629cb6a44f92a28"
+            ]
+        ]
+    },
+    {
+        "id": "6629cb6a44f92a28",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "Completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a82d1779214894df",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a98c39701246622c",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9d666d31961f0baa",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "79a229cde47c69ea",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "33f5bad4fcfb8561",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Drawdown Post",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": true,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "company_code",
+                "valueType": "other",
+                "valueValue": "ACT0062"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 640,
+        "y": 200,
+        "wires": [
+            [
+                "9d666d31961f0baa",
+                "0be9b59d576bcd36"
+            ]
+        ]
+    }
+]

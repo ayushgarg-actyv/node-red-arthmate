@@ -1,0 +1,484 @@
+[
+    {
+        "id": "697914ea6929b76f",
+        "type": "tab",
+        "label": "Set Limit",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1158c7686a0ca369",
+        "type": "http in",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "url": "/set-limit",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "c39425193d89de5d"
+            ]
+        ]
+    },
+    {
+        "id": "c39425193d89de5d",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "check for header",
+        "func": "const ARTHMATE_KEY = env.get('ARTHMATE_KEY');\nconst ARTHMATE_VALUE = env.get('ARTHMATE_VALUE');\n\nlet data = { ...msg };\nlet headers = data.req.rawHeaders;\nlet key = \"Authorization\";\nlet value = \"Bearer WaBgTPMYVCVbGnmmtdQ2UZuCWcKYBu\"\nlet idx = indexof(headers, key);\n\nif (headers[idx + 1] === value)\n    return msg;\nelse {\n    msg.payload = {\n        \"success\": false,\n        \"message\": \"Bad request\"\n    }\n    return msg;\n}\n\nfunction indexof(headers, key) {\n    let length = headers.length;\n    for (let index = 0; index < length / 2; index += 2) {\n        if (headers[index] === key) {\n            return index;\n        }\n        if (headers[length - 2 - index] === key) {\n            return length - 2 - index;\n        }\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 60,
+        "wires": [
+            [
+                "49ba7e4437f51537"
+            ]
+        ]
+    },
+    {
+        "id": "49ba7e4437f51537",
+        "type": "switch",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "f5c31eae57778351"
+            ],
+            [
+                "ae735da4c9ee9f2b"
+            ]
+        ]
+    },
+    {
+        "id": "f5c31eae57778351",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "Bad Request",
+        "statusCode": "400",
+        "headers": {},
+        "x": 710,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a8d73a6fe436b16e",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "response",
+        "statusCode": "",
+        "headers": {},
+        "x": 560,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "48649575e6c78c57",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a8e352b7662d7499",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL');\nconst EMAIL = env.get('EMAIL');\nconst PASSWORD = env.get('PASSWORD');\n\nmsg.loan_details = msg.payload;\nmsg.headers = {};\nmsg.method = \"POST\";\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "04f60d832378f4af"
+            ]
+        ]
+    },
+    {
+        "id": "04f60d832378f4af",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "29410162961b1cf1",
+                "6c9ccd10a3088b3f"
+            ]
+        ]
+    },
+    {
+        "id": "089795912f81f826",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "updating loanterm",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\nlet data=msg.payload;\nlet token=msg.token;\nlet limit_details = msg.limit_details;\nlet loan_details=msg.loan_details;\n\nmsg.url =`${PAYLATER_URL}/v1/loan-terms/update`;\nmsg.method=\"PATCH\";\nmsg.payload={\n    \"loanTermsID\": data[0].id,\n    \"approvedLimit\": limit_details.data.credit_limit,\n    \"bankProvidedLoanCodes\": loan_details.loanDetails.loan_app_id,\n    \"crnNumber\": `${loan_details.loanDetails.borrower_id}|${loan_details.loanDetails.loan_id}`,\n    \"loanGrantStatus\": \"APPROVED\"\n}\nmsg.headers={\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "abe981cd43413d87"
+            ]
+        ]
+    },
+    {
+        "id": "abe981cd43413d87",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "48649575e6c78c57",
+                "ca28a19c5479df1a"
+            ]
+        ]
+    },
+    {
+        "id": "ca28a19c5479df1a",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "response",
+        "func": "let data=msg;\nlet limit_details = msg.limit_details;\n\nif(data.statusCode===200){\n    msg.payload={\n        \"status\":\"success\",\n        \"data\":limit_details.data\n    }\n    return msg;\n} \nelse\n    return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "a8d73a6fe436b16e"
+            ]
+        ]
+    },
+    {
+        "id": "29410162961b1cf1",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ae735da4c9ee9f2b",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "event checking",
+        "func": "let data=msg.payload;\nif (data.event_key === \"set_limit\")\n    return msg;\nelse {\n    msg.payload = {\n        \"success\": false,\n        \"message\": \"Bad request\"\n    }\n    msg.statusCode = 404\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "44df259f9b0a139e"
+            ]
+        ]
+    },
+    {
+        "id": "44df259f9b0a139e",
+        "type": "switch",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "8c5d6491e6abc6e5"
+            ],
+            [
+                "394c023b9109f192"
+            ]
+        ]
+    },
+    {
+        "id": "8c5d6491e6abc6e5",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "Bad Request",
+        "statusCode": "404",
+        "headers": {},
+        "x": 810,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6c9ccd10a3088b3f",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "Search Bank Application",
+        "func": "msg.token=msg.payload;\nconst GO_URL = env.get('GO_URL');\n\nlet limit_details = msg.limit_details;\n\nmsg.url = `${GO_URL}/bank-application/${limit_details.data.partner_loan_id}`;\nmsg.method = \"GET\";\nmsg.payload = {};\nmsg.headers = {};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "7be33828e47aee46"
+            ]
+        ]
+    },
+    {
+        "id": "7be33828e47aee46",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 360,
+        "wires": [
+            [
+                "847ddc5f37571121",
+                "01e86d5b42cc230a"
+            ]
+        ]
+    },
+    {
+        "id": "847ddc5f37571121",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "01e86d5b42cc230a",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "search Loan Term",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\n\nlet token = msg.token;\nlet limit_details = msg.limit_details;\nlet data=msg.payload;\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/fetchByBankID`;\nmsg.method = \"POST\";\nmsg.payload = {\n    \"borrowerID\": data.businessPartner,\n    \"enterpriseID\": data.enterprise,\n    \"bankID\": data.bankID\n}\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 420,
+        "wires": [
+            [
+                "b1b579735cf046aa"
+            ]
+        ]
+    },
+    {
+        "id": "b1b579735cf046aa",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "089795912f81f826",
+                "268c08ddcf992a44"
+            ]
+        ]
+    },
+    {
+        "id": "268c08ddcf992a44",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "394c023b9109f192",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "getting loan details from bank",
+        "func": "const ARTHMATE_LINK = env.get('ARTHMATE_LINK');\nmsg.limit_details = msg.payload;\nlet arthmate_token = env.get('BANK_TOKEN');\nlet limit_details = msg.limit_details;\n\n\nmsg.url = `${ARTHMATE_LINK}/loan/${limit_details.data.loan_id}`;\nmsg.method = \"GET\";\n\nmsg.headers = {\n    \"Authorization\": `Bearer ${arthmate_token}`\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "d0bdfc787ddd412a"
+            ]
+        ]
+    },
+    {
+        "id": "d0bdfc787ddd412a",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "a8e352b7662d7499",
+                "106f402845ca0cc0"
+            ]
+        ]
+    },
+    {
+        "id": "106f402845ca0cc0",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 220,
+        "wires": []
+    }
+]
