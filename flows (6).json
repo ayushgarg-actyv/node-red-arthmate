@@ -1,0 +1,5511 @@
+[
+    {
+        "id": "81c311fac323257f",
+        "type": "tab",
+        "label": "Response from axis for lead push",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7bebc795bf8547ee",
+        "type": "tab",
+        "label": "Drawdown Request - Axis",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9689ba8d156bab71",
+        "type": "tab",
+        "label": "Drawdown Response - Axis",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "49902b3ff5f6d64b",
+        "type": "tab",
+        "label": "Enterprise Connect",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "11c67ca4c279e3fe",
+        "type": "tab",
+        "label": "Drawdown Request: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0d4b3cabb57ddaa4",
+        "type": "tab",
+        "label": "Drawdown Response: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "960d24c4a5017d1d",
+        "type": "tab",
+        "label": "Payment: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5f1d3c1c9df93591",
+        "type": "tab",
+        "label": "Status loan level: Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fd98b309e3e30b8d",
+        "type": "tab",
+        "label": "Image to Pdf",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "697914ea6929b76f",
+        "type": "tab",
+        "label": "Set Limit",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "330c5d9d398acad5",
+        "type": "tab",
+        "label": "Read Email from Outlook",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "30b913f1f16dc8d1",
+        "type": "tab",
+        "label": "Mandate_creation:Arthmate",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "18390a8f994d7343",
+        "type": "group",
+        "z": "9689ba8d156bab71",
+        "name": "Move file SFTP",
+        "style": {
+            "stroke": "#92d04f",
+            "fill": "#e3f3d3",
+            "label": true
+        },
+        "nodes": [
+            "460deb8bbe554061",
+            "8c01f73ab2c43545",
+            "a4bfb852b4380ea4"
+        ],
+        "x": 94,
+        "y": 339
+    },
+    {
+        "id": "13066013742ff021",
+        "type": "SFTP-credentials",
+        "host": "43.204.74.60",
+        "port": "22",
+        "username": "apl_uat_sftp",
+        "password": "14UiqD1LvPobOpZIC8"
+    },
+    {
+        "id": "d4942248b841ce28",
+        "type": "SFTP-credentials",
+        "host": "43.204.74.60",
+        "port": "22",
+        "username": "tata_uat_sftp",
+        "password": "QLYEe4B7eRCPjqm2fntn"
+    },
+    {
+        "id": "0e380d6f263350db",
+        "type": "inject",
+        "z": "81c311fac323257f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "c0293a2fb785a15f"
+            ]
+        ]
+    },
+    {
+        "id": "e202ec52153c1d3f",
+        "type": "debug",
+        "z": "81c311fac323257f",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ff96d7d74ad9a6af",
+        "type": "SFTP-main",
+        "z": "81c311fac323257f",
+        "path": "/",
+        "method": "list",
+        "remoteFilePath": "/sftpdir/test",
+        "remoteFilePathType": "str",
+        "localFilePath": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red",
+        "localFilePathType": "str",
+        "server": "13066013742ff021",
+        "outputs": 1,
+        "debug": false,
+        "name": "lisitng the files from sftp",
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "b1f3dadee0b69c24",
+                "4af54b2cdce76db5"
+            ]
+        ]
+    },
+    {
+        "id": "b1f3dadee0b69c24",
+        "type": "SFTP-main",
+        "z": "81c311fac323257f",
+        "path": "/",
+        "method": "get",
+        "remoteFilePath": "payload",
+        "remoteFilePathType": "msg",
+        "localFilePath": "/Users/shravanpm/Desktop/node-red",
+        "localFilePathType": "str",
+        "server": "13066013742ff021",
+        "outputs": 1,
+        "debug": false,
+        "name": "get a single file from sftp",
+        "x": 510,
+        "y": 140,
+        "wires": [
+            [
+                "4d53941e68b2f2b4"
+            ]
+        ]
+    },
+    {
+        "id": "4d53941e68b2f2b4",
+        "type": "file in",
+        "z": "81c311fac323257f",
+        "name": "",
+        "filename": "payload[0]",
+        "filenameType": "msg",
+        "format": "stream",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 760,
+        "y": 140,
+        "wires": [
+            [
+                "4af54b2cdce76db5"
+            ]
+        ]
+    },
+    {
+        "id": "6eb028a3c7f2a85d",
+        "type": "book",
+        "z": "81c311fac323257f",
+        "name": "",
+        "raw": false,
+        "x": 1050,
+        "y": 140,
+        "wires": [
+            [
+                "83e2288233cbd47e"
+            ]
+        ]
+    },
+    {
+        "id": "83e2288233cbd47e",
+        "type": "sheet",
+        "z": "81c311fac323257f",
+        "name": "OUTSTANDING",
+        "sheetName": "Sheet1",
+        "x": 180,
+        "y": 220,
+        "wires": [
+            [
+                "3942eb53f3364263"
+            ]
+        ]
+    },
+    {
+        "id": "3942eb53f3364263",
+        "type": "sheet-to-json",
+        "z": "81c311fac323257f",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "8417fb2317cc1a5e"
+            ]
+        ]
+    },
+    {
+        "id": "19655b825187879c",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "read xlsx from sftp",
+        "info": "",
+        "x": 270,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "9157a8d255931bce",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "check for csv/xlsx",
+        "info": "",
+        "x": 1010,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bb22e39fabf6d72c",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "scheduler",
+        "info": "execute every day",
+        "x": 160,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6a13de448a809a9d",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "AWS S3",
+        "info": "Upload the incoming file to S3 ",
+        "x": 340,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e1cd45ed1fbeab41",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "move file",
+        "info": "check for the sucess folder existance\nif folder doesn't exist create folder\nmove the file to sucess folder",
+        "x": 500,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "dc8975af183e9e1d",
+        "type": "comment",
+        "z": "81c311fac323257f",
+        "name": "Trigger Api",
+        "info": "Store data in datasource config",
+        "x": 660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "8417fb2317cc1a5e",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "function 1",
+        "func": "let res = []\n\nfor(let i=1;i<msg.payload.length;i++){\n    \nres.push(msg.payload[i]);\n\n}\nmsg.count = 0;\nmsg.enum = res;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "48413880374fb3d8"
+            ]
+        ]
+    },
+    {
+        "id": "48413880374fb3d8",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "loop",
+        "func": "// console.log(\"enum\",msg.enum);\nlet arr = [...msg.enum]\nfor(let i=0;i<arr.length;i++){\n    msg.payload = arr[i]\n    node.send(msg);\n    // console.log(\"\\n\\n\",\"sd\",msg.enum[i],\"\\n\\n\")\n}\n\n// return msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 220,
+        "wires": [
+            [
+                "7baab9e84b4142ff"
+            ]
+        ]
+    },
+    {
+        "id": "c0293a2fb785a15f",
+        "type": "http request",
+        "z": "81c311fac323257f",
+        "name": "Bank Product Id",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://actyv-platform-go-service.dev.actyv.com/api/bank-product-config/key/AXISTESTKEY",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "x-actyv-api-config-key",
+                "valueType": "other",
+                "valueValue": "8HhkIWzVMSnSgvlhxr"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "",
+                "valueType": "other",
+                "valueValue": ""
+            }
+        ],
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "34f5fe59061a43b2"
+            ]
+        ],
+        "info": "Get bank product config id"
+    },
+    {
+        "id": "b313a7599c5dfa97",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "Authenticate",
+        "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.url = \"https://actyv-platform-admin-service.qa.actyv.com/api/user/authenticateUser\";\nmsg.headers[\"content-type\"] = \"application/json\"\n\n\nmsg.payload = {\n    \"email\": \"admin@actyv.com\",\n    \"password\": \"890ioP@12\"\n};\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 80,
+        "wires": [
+            [
+                "9316cf728727160f"
+            ]
+        ]
+    },
+    {
+        "id": "34f5fe59061a43b2",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "function 3",
+        "func": "\nconst data = JSON.parse(msg.payload);\nflow.set('bankProductId', data.id);\n// console.log(\"id\",data.id)\nmsg.payload = {}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 80,
+        "wires": [
+            [
+                "b313a7599c5dfa97"
+            ]
+        ]
+    },
+    {
+        "id": "9be1b31c4ce4eb5b",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "function 4",
+        "func": "msg.payload = JSON.parse(msg.payload)\nflow.set('token', msg.payload.idToken);\nlet token = flow.get('token');\n// console.log(\"token\",token)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 80,
+        "wires": [
+            [
+                "ff96d7d74ad9a6af"
+            ]
+        ]
+    },
+    {
+        "id": "7baab9e84b4142ff",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "Get business partner",
+        "func": "let data = {...msg}\nmsg.payload = {}\ndelete data.enum\nmsg[\"tentative_limit\"] = data.payload[\"Tentative limit\"]\nmsg.url = `https://actyv-platform-go-service.qa.actyv.com/api/business-partner/service/${data.payload[\"Merchant PAN\"]}`;\ndelete msg.enum\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "78c37b72ebfc616f"
+            ]
+        ]
+    },
+    {
+        "id": "78c37b72ebfc616f",
+        "type": "http request",
+        "z": "81c311fac323257f",
+        "name": "Get bp by pan",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "x-actyv-api-config-key",
+                "valueType": "other",
+                "valueValue": "8HhkIWzVMSnSgvlhxr"
+            }
+        ],
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "bcec5c683d9a50c0"
+            ]
+        ]
+    },
+    {
+        "id": "4e120bace28e6b76",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "post field value",
+        "func": "var token = flow.get('token')\nvar bp =  flow.get('bankProductId')\nmsg.payload = JSON.parse(msg.payload)\nmsg.headers = {}\nmsg.method = \"POST\"\nmsg.url = \"https://actyv-platform-go-service.qa.actyv.com/api/field-value\";\n// msg.headers[\"content-type\"] = \"application/json\"\n// msg.headers[\"Authorization\"] = `Bearer ${token}`\n// msg.headers[\"x-actyv-api-config-key\"] = \"8HhkIWzVMSnSgvlhxr\"\n// msg.headers[\"businesspartnerId\"] = msg.payload.businessPartnerId\n\nmsg.headers = {\n    \"content-type\":\"application/json\" ,\n    \"Authorization\" : `Bearer ${token}`,\n    \"x-actyv-api-config-key\" : \"8HhkIWzVMSnSgvlhxr\",\n    \"businesspartnerId\" : msg.payload.businessPartnerId\n}\nmsg.payload = JSON.stringify(msg.payload)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 420,
+        "wires": [
+            [
+                "fd1135100c3b89d0"
+            ]
+        ]
+    },
+    {
+        "id": "bcec5c683d9a50c0",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "print",
+        "func": "var bp = flow.get('bankProductId') ;\nmsg.payload = JSON.parse(msg.payload)\nlet obj = {\n    value:msg['tentative_limit'],\n    key:\"tentative limit\",\n    \"businessPartnerId\": msg.payload._id,\n    \"bankApplicationId\": bp\n}\nflow.set(\"op\",obj);\nmsg.payload = JSON.stringify(obj)\n// console.log(\"\\n\\n\\n\",'cc',obj,\"\\n\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "4e120bace28e6b76"
+            ]
+        ]
+    },
+    {
+        "id": "96411b7ea8dd0cd3",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "print",
+        "func": "\nconsole.log(\"\\n\\n\\n\",'cc',msg,\"\\n\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9316cf728727160f",
+        "type": "http request",
+        "z": "81c311fac323257f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 870,
+        "y": 80,
+        "wires": [
+            [
+                "9be1b31c4ce4eb5b"
+            ]
+        ]
+    },
+    {
+        "id": "ba605e80809b51dc",
+        "type": "http request",
+        "z": "81c311fac323257f",
+        "name": "save temtative limit",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "96411b7ea8dd0cd3"
+            ]
+        ]
+    },
+    {
+        "id": "fd1135100c3b89d0",
+        "type": "function",
+        "z": "81c311fac323257f",
+        "name": "print",
+        "func": "\nconsole.log(\"\\n\\n\\n\",'cc',msg,\"\\n\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 480,
+        "wires": [
+            [
+                "ba605e80809b51dc"
+            ]
+        ]
+    },
+    {
+        "id": "4af54b2cdce76db5",
+        "type": "debug",
+        "z": "81c311fac323257f",
+        "name": "debug 51",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a95f571cbb5c3502",
+        "type": "inject",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 255.00001907348633,
+        "y": 151.2500057220459,
+        "wires": [
+            [
+                "2898187e447f27c5"
+            ]
+        ]
+    },
+    {
+        "id": "8a6a1e02529e68bd",
+        "type": "debug",
+        "z": "7bebc795bf8547ee",
+        "name": "Pending drawdowns length",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 564.9999923706055,
+        "y": 392.4999942779541,
+        "wires": []
+    },
+    {
+        "id": "2898187e447f27c5",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "Set env variables",
+        "func": "\nlet v8 = global.get(\"v8\");\nconst totalHeapSize = v8.getHeapStatistics().total_available_size;\nlet totalHeapSizeInMB = (totalHeapSize / 1024 / 1024).toFixed(2)\nnode.warn(\"V8 Total Heap Size \"+totalHeapSize+\" bytes\");\n\nconst ENV_VARIABLES = new Map();\n\nENV_VARIABLES.set('PAYLATER_URL',\"https://actyv-platform-paylater-service-v1.dev.actyv.com\")\nENV_VARIABLES.set('GO_URL',\"https://actyv-platform-go-service.dev.actyv.com/api\")\nENV_VARIABLES.set('ADMIN_URL',\"https://actyv-platform-admin-service.dev.actyv.com\")\n\nENV_VARIABLES.set('BUSINESS_IDENTIFIER',\"ABBCB2066P\")\nENV_VARIABLES.set('BUSINESS_TYPE',\"ENTERPRISE\")\nENV_VARIABLES.set('BANK_KEY',\"msl\")\nENV_VARIABLES.set('X_ACTYV_API_CONFIG_KEY',\"8HhkIWzVMSnSgvlhxr\")\nENV_VARIABLES.set('BANK_UNIQUE_IDENTIFIER',\"AAACM5445J\")\n\nglobal.set('envVariables',ENV_VARIABLES)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 445.0000190734863,
+        "y": 151.2500057220459,
+        "wires": [
+            [
+                "ee938dc945130aad"
+            ]
+        ]
+    },
+    {
+        "id": "ee938dc945130aad",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "getPendingDrawdownsReq",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\nconst BANK_UNIQUE_IDENTIFIER = envVariables.get('BANK_UNIQUE_IDENTIFIER')\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown/send-drawdowns-to-bank/${BANK_UNIQUE_IDENTIFIER}`\nmsg.method = 'PUT'\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 315.0000190734863,
+        "y": 271.2500057220459,
+        "wires": [
+            [
+                "2264c1c62b4c536c"
+            ]
+        ]
+    },
+    {
+        "id": "2264c1c62b4c536c",
+        "type": "http request",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 545.0000190734863,
+        "y": 271.2500057220459,
+        "wires": [
+            [
+                "822f2af943c92652"
+            ]
+        ]
+    },
+    {
+        "id": "822f2af943c92652",
+        "type": "switch",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "property": "payload.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "8a6a1e02529e68bd"
+            ],
+            [
+                "a8e7657f9e67da3b"
+            ]
+        ]
+    },
+    {
+        "id": "a8e7657f9e67da3b",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "setDrawdownReqFormat",
+        "func": "const pendingDrawdowns = msg.payload\nconst formatPendingDrawdownsForAxis = []\nfor (let pendingDrawdown of pendingDrawdowns) {\n    formatPendingDrawdownsForAxis.push({\n        \"Dealer Code\": pendingDrawdown.loanTerm?.crnNumber || \"\",\n        \"Invoice Date\": changeDateFormat(pendingDrawdown.invoice.documentDate.split(\"T\")[0]),\n        \"Invoice Number\": pendingDrawdown.invoice.finalInvoiceNo,\n        \"Invoice Amount\": pendingDrawdown.invoice.netAmount,\n        \"Due Date\": changeDateFormat(pendingDrawdown.invoice.dueDate.split(\"T\")[0]),\n        \"Account No\": pendingDrawdown.businessRelationShip.bankAccountNumber || \"\",\n        \"Email ID\": \"\",\n    })\n\n}\n\nfunction changeDateFormat(str) {\n    str = str.split(\"-\");\n    let res = str[2] + \"-\" + str[1] + \"-\" + str[0]\n    return res\n}\n\nmsg.payload = formatPendingDrawdownsForAxis;\n// TODO: Follow naming of the filename as per Axis\nconst fileConvention = createFileNameForAxis()\t\nmsg.filename = `/Users/ramu/Desktop/node-red/drawdowns/${fileConvention}`\n\nfunction createFileNameForAxis(){\n    const input = new Date().toISOString().split('.')\n    const modified = `${input[0].replaceAll(':', '-')}.xlsx`\n\n    return `Actyv_${modified}`\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 520,
+        "wires": [
+            [
+                "126ed2712bb6d269"
+            ]
+        ]
+    },
+    {
+        "id": "43065adcddf8100b",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "mockPendingDrawdowns",
+        "func": "msg.payload = [\n    {\n        \"loanTerm\": {\n            \"approvedLimit\": \"50000000\",\n            \"crnNumber\": \"123\",\n            \"bankProvidedLoanCode\": \"2134\",\n            \"validTill\": \"2022-11-16\",\n            \"loanAmount\": \"\",\n            \"holdAmount\": 0,\n            \"businessType\": \"VENDOR\"\n        },\n        \"invoice\": {\n            \"id\": \"e9966a85-c09c-4302-8a1e-5ad28e1deed2\",\n            \"finalInvoiceNo\": \"0050101517SGFL2022\",\n            \"documentDate\": \"2022-10-17T00:00:00.000Z\",\n            \"dueDate\": \"2022-11-16T00:00:00.000Z\",\n            \"remitTo\": \"\",\n            \"remitAccount\": \"\",\n            \"netAmount\": 3540543,\n            \"additionalAttributes\": null,\n            \"erpID\": null\n        },\n        \"tenorAndRateSpread\": {\n            \"fromDuration\": \"P0D\",\n            \"toDuration\": \"P7D\",\n            \"bankSpread\": 12\n        },\n        \"loanDrawdown\": {\n            \"requestUniqueCode\": \"ACTY3891670954806167\",\n            \"requestAmount\": 3540543,\n            \"dueDate\": \"2022-11-23T00:00:00.000Z\",\n            \"remitAccount\": \"APLATB101104\",\n            \"bankIFSC\": \"HDFC0000003\"\n        },\n        \"bank\": {\n            \"userFriendlyIdentifier\": \"Moongipa Securities Ltd.\",\n            \"name\": \"Moongipa Securities Ltd.\"\n        },\n        \"enterprise\": {\n            \"userFriendlyIdentifier\": \"Apollo\",\n            \"name\": \"Apollo\"\n        },\n        \"distributor\": {\n            \"userFriendlyIdentifier\": \"Santosh Steel\",\n            \"name\": \"Santosh Steel\"\n        },\n        \"businessRelationShip\": {\n\n        }\n    }\n]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 805.0000190734863,
+        "y": 271.2500057220459,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "126ed2712bb6d269",
+        "type": "alafile out",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "filename": "",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 550,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "fa4fdd38fb706227",
+        "type": "SFTP-main",
+        "z": "7bebc795bf8547ee",
+        "path": "/",
+        "method": "put",
+        "remoteFilePath": "/sftpdir/test/ramu/drawdowns/request",
+        "remoteFilePathType": "str",
+        "localFilePath": "payload",
+        "localFilePathType": "msg",
+        "server": "d4942248b841ce28",
+        "outputs": 1,
+        "debug": false,
+        "name": "Create file in SFTP drawdowns folder ",
+        "x": 710,
+        "y": 620,
+        "wires": [
+            [
+                "430a305f72ed34cc"
+            ]
+        ]
+    },
+    {
+        "id": "78120b2848409757",
+        "type": "alafile in",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "filename": "",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 510,
+        "y": 720,
+        "wires": [
+            [
+                "ed37198b2d239645"
+            ]
+        ]
+    },
+    {
+        "id": "430a305f72ed34cc",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "removeExtensions(.xlsx)",
+        "func": "const filename = msg.payload.split('.xlsx')[0]\n\nmsg.filename = filename;\nmsg.payload = filename\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 720,
+        "wires": [
+            [
+                "78120b2848409757"
+            ]
+        ]
+    },
+    {
+        "id": "506864c3aba3b177",
+        "type": "http request",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 920,
+        "wires": [
+            [
+                "0bf9e2a9a2a126d6",
+                "f97955258f937ace"
+            ]
+        ]
+    },
+    {
+        "id": "c4cf01da6b79d3c8",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "updateDrawdownReq",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown`\nmsg.method = 'PATCH'\n\nmsg.payload = {\n    // requestUniqueCode: msg.payload[\"Invoice Number\"],\n    requestUniqueCode: \"ACTY3891674911178473\",\n    drawdownStatus: 'inProgress'\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 920,
+        "wires": [
+            [
+                "506864c3aba3b177"
+            ]
+        ]
+    },
+    {
+        "id": "f97955258f937ace",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "updateHoldAmountReq",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/hold-amount`\nmsg.method = 'POST'\nmsg.payload = {\n    \"loanDetails\": [\n        {\n            \"loanID\": msg.payload.loanID,\n            \"holdAmount\": Number(msg.payload.requestAmount)\n        }\n    ],\n    \"update\": true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1120,
+        "wires": [
+            [
+                "7d35f0af48f96b33"
+            ]
+        ]
+    },
+    {
+        "id": "7d35f0af48f96b33",
+        "type": "http request",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 1120,
+        "wires": [
+            [
+                "25dcf486ab8639e9"
+            ]
+        ]
+    },
+    {
+        "id": "ed37198b2d239645",
+        "type": "function",
+        "z": "7bebc795bf8547ee",
+        "name": "mapJsonFromXLSX",
+        "func": "\nconst sleep = async (milliseconds) => {\n        await new Promise(resolve => {\n                return setTimeout(resolve, milliseconds)\n        });\n};\n\nfor (let item of msg.payload) {\n        await sleep(5000)\n        node.send({payload: item})\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 820,
+        "wires": [
+            [
+                "c4cf01da6b79d3c8"
+            ]
+        ]
+    },
+    {
+        "id": "25dcf486ab8639e9",
+        "type": "debug",
+        "z": "7bebc795bf8547ee",
+        "name": "Completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "b6b778e893e372b3",
+        "type": "comment",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "info": "Change folder path to create a file (local path)",
+        "x": 200,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "0bf9e2a9a2a126d6",
+        "type": "debug",
+        "z": "7bebc795bf8547ee",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "481d32e03ef179ca",
+        "type": "comment",
+        "z": "7bebc795bf8547ee",
+        "name": "Change requestUniquecode",
+        "info": "In updateDrawdownRequest change requestUniquecode to dynamic\nRight now it is static",
+        "x": 300,
+        "y": 960,
+        "wires": [],
+        "icon": "font-awesome/fa-warning"
+    },
+    {
+        "id": "e811174813fd9ea2",
+        "type": "inject",
+        "z": "9689ba8d156bab71",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "c0d1804b056d815b"
+            ]
+        ]
+    },
+    {
+        "id": "c0d1804b056d815b",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "name": "Set env variables",
+        "func": "\nlet v8 = global.get(\"v8\");\nconst totalHeapSize = v8.getHeapStatistics().total_available_size;\nlet totalHeapSizeInMB = (totalHeapSize / 1024 / 1024).toFixed(2)\nnode.warn(\"V8 Total Heap Size \"+totalHeapSize+\" bytes\");\n\nconst ENV_VARIABLES = new Map();\n\nENV_VARIABLES.set('PAYLATER_URL',\"https://actyv-platform-paylater-service-v1.dev.actyv.com\")\nENV_VARIABLES.set('GO_URL',\"https://actyv-platform-go-service.dev.actyv.com/api\")\nENV_VARIABLES.set('ADMIN_URL',\"https://actyv-platform-admin-service.dev.actyv.com\")\n\nENV_VARIABLES.set('BUSINESS_IDENTIFIER',\"ABBCB2066P\")\nENV_VARIABLES.set('BUSINESS_TYPE',\"ENTERPRISE\")\nENV_VARIABLES.set('BANK_KEY',\"msl\")\nENV_VARIABLES.set('X_ACTYV_API_CONFIG_KEY',\"8HhkIWzVMSnSgvlhxr\")\nENV_VARIABLES.set('BANK_UNIQUE_IDENTIFIER',\"AAACM5445J\")\n\nglobal.set('envVariables',ENV_VARIABLES)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "34dbdaef3b3dbb3c"
+            ]
+        ]
+    },
+    {
+        "id": "34dbdaef3b3dbb3c",
+        "type": "SFTP-main",
+        "z": "9689ba8d156bab71",
+        "path": "/",
+        "method": "list",
+        "remoteFilePath": "/sftpdir/test/ramu/drawdowns/response",
+        "remoteFilePathType": "str",
+        "localFilePath": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red",
+        "localFilePathType": "str",
+        "server": "d4942248b841ce28",
+        "outputs": 1,
+        "debug": false,
+        "name": "lisitng the files from sftp",
+        "x": 250,
+        "y": 260,
+        "wires": [
+            [
+                "1908124665846d79"
+            ]
+        ]
+    },
+    {
+        "id": "1908124665846d79",
+        "type": "SFTP-main",
+        "z": "9689ba8d156bab71",
+        "path": "/",
+        "method": "get",
+        "remoteFilePath": "payload",
+        "remoteFilePathType": "msg",
+        "localFilePath": "/Users/ramu/Desktop/node-red",
+        "localFilePathType": "str",
+        "server": "d4942248b841ce28",
+        "outputs": 1,
+        "debug": false,
+        "name": "get a single file from sftp",
+        "x": 510,
+        "y": 260,
+        "wires": [
+            [
+                "460deb8bbe554061"
+            ]
+        ]
+    },
+    {
+        "id": "483ea1d670db621e",
+        "type": "alafile in",
+        "z": "9689ba8d156bab71",
+        "name": "",
+        "filename": "",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "4246c1899fca4abb"
+            ]
+        ]
+    },
+    {
+        "id": "460deb8bbe554061",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "g": "18390a8f994d7343",
+        "name": "setRemotePath",
+        "func": "msg.filename = msg.payload[0].split('.')[0] // filename without extension\n\nconst folderPath = msg.payload[0].split(\"/\")\nconst fileName = folderPath[folderPath.length - 1]\nflow.set('filename', fileName) // filename with extension\n\n// msg.filepath = `/Users/ramu/Desktop/node-red/${fileName}`\nmsg.successPath = `/sftpdir/test/ramu/success`\nmsg.localPath = `/Users/ramu/Desktop/node-red/${fileName}`\nmsg.remotePath = `/sftpdir/test/ramu/drawdowns/response/${fileName}`\n\nreturn msg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "483ea1d670db621e",
+                "8c01f73ab2c43545"
+            ]
+        ]
+    },
+    {
+        "id": "4246c1899fca4abb",
+        "type": "switch",
+        "z": "9689ba8d156bab71",
+        "name": "",
+        "property": "payload.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 640,
+        "wires": [
+            [
+                "977a7728ec575599"
+            ],
+            [
+                "05c7efb5f38a0e6e"
+            ]
+        ]
+    },
+    {
+        "id": "05c7efb5f38a0e6e",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "name": "mapJsonFromXLSX",
+        "func": "\n\nconst sleep = async (milliseconds) => {\n    await new Promise(resolve => {\n        return setTimeout(resolve, milliseconds)\n    });\n};\n\n    for (let item of msg.payload) {\n            await sleep(5000)\n            node.send({\n                payload: item,\n                isCompleted: \"false\"\n            })\n}\n\nmsg.isCompleted = \"true\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 680,
+        "wires": [
+            [
+                "2e43df2403ddf140"
+            ]
+        ]
+    },
+    {
+        "id": "977a7728ec575599",
+        "type": "debug",
+        "z": "9689ba8d156bab71",
+        "name": "Response drawdowns length",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.length",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "8b12a37cc68117ac",
+        "type": "http request",
+        "z": "9689ba8d156bab71",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1090,
+        "y": 680,
+        "wires": [
+            [
+                "c16d55eb33f72f6e"
+            ]
+        ]
+    },
+    {
+        "id": "e91314979c63737c",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "name": "updateDrawdownReq",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown`\nmsg.method = 'PATCH'\n\nconst item = msg.payload;\n\nif(item.Status === 'S'){\n    msg.payload = {\n        \"drawdownStatus\": \"paid\",\n        \"bankProvidedDrawdownCodes\": item[\"UTR No\"],\n        \"disbursedAmount\": item[\"Invoice Amount\"],\n        // \"requestUniqueCode\": item[\"Invoice Number\"]\n        \"requestUniqueCode\": \"ACTY3891674911178473\"\n    }\n}else{\n    msg.payload = {\n        \"drawdownStatus\": \"failed\",\n        // \"requestUniqueCode\": item[\"Invoice Number\"]\n        \"requestUniqueCode\": \"ACTY3891674911178473\"\n    }\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 620,
+        "wires": [
+            [
+                "8b12a37cc68117ac"
+            ]
+        ]
+    },
+    {
+        "id": "3d064fc536e2a6f6",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "name": "callDailyLedgerSP",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\n\nmsg.url = `${PAYLATER_URL}/v1/daily-ledger/sp`\nmsg.method = 'POST'\n\nmsg.payload = {\n    transactionDate: new Date().toISOString().split('T')[0] // 2023-01-28\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 740,
+        "wires": [
+            [
+                "8b12a37cc68117ac"
+            ]
+        ]
+    },
+    {
+        "id": "e8035116dc774e2d",
+        "type": "function",
+        "z": "9689ba8d156bab71",
+        "name": "callCashApplicationSP",
+        "func": "const envVariables = global.get('envVariables')\nconst PAYLATER_URL = envVariables.get('PAYLATER_URL')\n\nmsg.url = `${PAYLATER_URL}/v1/cash-application/sp`\nmsg.method = 'POST'\n\nmsg.payload = {\n    transactionDate: new Date().toISOString().split('T')[0] // 2023-01-28\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 700,
+        "wires": [
+            [
+                "8b12a37cc68117ac"
+            ]
+        ]
+    },
+    {
+        "id": "c16d55eb33f72f6e",
+        "type": "debug",
+        "z": "9689ba8d156bab71",
+        "name": "Completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8c01f73ab2c43545",
+        "type": "SFTP-main",
+        "z": "9689ba8d156bab71",
+        "g": "18390a8f994d7343",
+        "path": "/",
+        "method": "put",
+        "remoteFilePath": "successPath",
+        "remoteFilePathType": "msg",
+        "localFilePath": "localPath",
+        "localFilePathType": "msg",
+        "server": "d4942248b841ce28",
+        "outputs": 1,
+        "debug": false,
+        "name": "move to success folder",
+        "x": 470,
+        "y": 380,
+        "wires": [
+            [
+                "bcdd02193219c5ca"
+            ]
+        ]
+    },
+    {
+        "id": "bcdd02193219c5ca",
+        "type": "SFTP-main",
+        "z": "9689ba8d156bab71",
+        "path": "/",
+        "method": "delete",
+        "remoteFilePath": "remotePath",
+        "remoteFilePathType": "msg",
+        "localFilePath": "filepath",
+        "localFilePathType": "msg",
+        "server": "d4942248b841ce28",
+        "outputs": 1,
+        "debug": false,
+        "name": "delete from existing folder",
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "a4bfb852b4380ea4"
+            ]
+        ]
+    },
+    {
+        "id": "a4bfb852b4380ea4",
+        "type": "debug",
+        "z": "9689ba8d156bab71",
+        "g": "18390a8f994d7343",
+        "name": "Deleted file from SFTP existing directory",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2e43df2403ddf140",
+        "type": "switch",
+        "z": "9689ba8d156bab71",
+        "name": "",
+        "property": "isCompleted",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 680,
+        "wires": [
+            [
+                "e91314979c63737c"
+            ],
+            [
+                "3d064fc536e2a6f6",
+                "e8035116dc774e2d"
+            ]
+        ]
+    },
+    {
+        "id": "b6ce57fde6529aa3",
+        "type": "comment",
+        "z": "9689ba8d156bab71",
+        "name": "Change requestUniquecode",
+        "info": "In updateDrawdownRequest change requestUniquecode to dynamic\nRight now it is static",
+        "x": 820,
+        "y": 660,
+        "wires": [],
+        "icon": "font-awesome/fa-warning"
+    },
+    {
+        "id": "ae99014c1066ee58",
+        "type": "inject",
+        "z": "49902b3ff5f6d64b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "dad7e588597d95b3"
+            ]
+        ]
+    },
+    {
+        "id": "4585eb06c3960bd1",
+        "type": "debug",
+        "z": "49902b3ff5f6d64b",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "dad7e588597d95b3",
+        "type": "SFTP-main",
+        "z": "49902b3ff5f6d64b",
+        "path": "/",
+        "method": "list",
+        "remoteFilePath": "/sftpdir/test/ayush",
+        "remoteFilePathType": "str",
+        "localFilePath": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red",
+        "localFilePathType": "str",
+        "server": "13066013742ff021",
+        "outputs": 1,
+        "debug": false,
+        "name": "lisitng the files from sftp",
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "5df20cb934ed2b87"
+            ]
+        ]
+    },
+    {
+        "id": "5df20cb934ed2b87",
+        "type": "SFTP-main",
+        "z": "49902b3ff5f6d64b",
+        "path": "/",
+        "method": "get",
+        "remoteFilePath": "payload",
+        "remoteFilePathType": "msg",
+        "localFilePath": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red",
+        "localFilePathType": "str",
+        "server": "13066013742ff021",
+        "outputs": 1,
+        "debug": false,
+        "name": "get a single file from sftp",
+        "x": 670,
+        "y": 100,
+        "wires": [
+            [
+                "b443d03c51da32cc",
+                "a957396dffc6c337"
+            ]
+        ]
+    },
+    {
+        "id": "a957396dffc6c337",
+        "type": "file in",
+        "z": "49902b3ff5f6d64b",
+        "name": "",
+        "filename": "payload[0]",
+        "filenameType": "msg",
+        "format": "stream",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 920,
+        "y": 100,
+        "wires": [
+            [
+                "dacf26805f8da41d"
+            ]
+        ]
+    },
+    {
+        "id": "dacf26805f8da41d",
+        "type": "book",
+        "z": "49902b3ff5f6d64b",
+        "name": "",
+        "raw": false,
+        "x": 1070,
+        "y": 100,
+        "wires": [
+            [
+                "f8f6718b2341d5ea"
+            ]
+        ]
+    },
+    {
+        "id": "f8f6718b2341d5ea",
+        "type": "sheet",
+        "z": "49902b3ff5f6d64b",
+        "name": "OUTSTANDING",
+        "sheetName": "Sheet1",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "95eaf8720371ae70"
+            ]
+        ]
+    },
+    {
+        "id": "95eaf8720371ae70",
+        "type": "sheet-to-json",
+        "z": "49902b3ff5f6d64b",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "4585eb06c3960bd1"
+            ]
+        ]
+    },
+    {
+        "id": "bb9ee63b962e5f38",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "read xlsx from sftp",
+        "info": "",
+        "x": 190,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "95dda569fefc300d",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "check for csv/xlsx",
+        "info": "",
+        "x": 840,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b5fa1ebbefe63026",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "scheduler",
+        "info": "execute every day",
+        "x": 160,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "db62e93fc4be6b37",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "AWS S3",
+        "info": "Upload the incoming file to S3 ",
+        "x": 300,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2d73451fd07a8c2e",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "move file",
+        "info": "check for the sucess folder existance\nif folder doesn't exist create folder\nmove the file to sucess folder",
+        "x": 460,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3a4f7fb58cdf8173",
+        "type": "comment",
+        "z": "49902b3ff5f6d64b",
+        "name": "Trigger Api",
+        "info": "Store data in datasource config",
+        "x": 620,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b443d03c51da32cc",
+        "type": "debug",
+        "z": "49902b3ff5f6d64b",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "93aa8635ec9c75c0",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Drawdown Mapping",
+        "func": "let drawdown_data = msg.drawdown_data;\nlet loanid = drawdown_data.loanTerm.crnNumber.split('|');\nconst BANK_URL = env.get('BANK_URL');\nconst BANK_TOKEN = env.get('BANK_TOKEN');\n\n\n\nmsg.payload= {\n    \"loan_id\": loanid[1],\n    // \"loan_id\":\"AMLERFBOP100000000798\",\n    \"no_of_emi\": \"1\",\n    \"drawdown_amount\": Number(`${drawdown_data.loanDrawdown.requestAmount}`),\n    \"net_drawdown_amount\": Number(`${drawdown_data.loanDrawdown.requestAmount}`),\n    \"usage_fees_including_gst\": \"0.0\"\n}\nmsg.url =`${BANK_URL}/api/record-drawdown-request`;\nmsg.headers = {\n    \"Authorization\": `Bearer ${BANK_TOKEN}`\n};\nmsg.method = \"POST\";\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "9d666d31961f0baa"
+            ]
+        ]
+    },
+    {
+        "id": "f893ae5487b86f4e",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Get drawdown for bank",
+        "func": "const PAYLATER_URL = env.get(\"PAYLATER_URL\")\n\n\nlet bankUniqueIdentifier = env.get('BANK_UNIQUE_IDENTIFIER'); //Arthmate ID\nlet data=msg.payload;\nflow.set(\"token\",data);\nmsg.headers = {\n    \"Authorization\": \"Bearer \" + data.idToken,\n    \"bankId\": env.get('BANK_ID')\n}\nmsg.method = \"PUT\"\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown/send-drawdowns-to-bank/`+bankUniqueIdentifier;\nconsole.log(PAYLATER_URL);\nconsole.log(msg.url);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "ef836c847f310ec0"
+            ]
+        ]
+    },
+    {
+        "id": "ef836c847f310ec0",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Requesting drawdown",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 680,
+        "y": 100,
+        "wires": [
+            [
+                "a98c39701246622c",
+                "ab8691f4b0c32986"
+            ]
+        ]
+    },
+    {
+        "id": "ab8691f4b0c32986",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "loop for each invoice",
+        "func": "let data=msg.payload;\nfor (let index = 0; index < data.length ; index++) {\n    node.send(data[index]);\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 100,
+        "wires": [
+            [
+                "fbe2011347721b17"
+            ]
+        ]
+    },
+    {
+        "id": "fbe2011347721b17",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "each drawdown",
+        "func": "let data={...msg}\nmsg.drawdown_data=data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "93aa8635ec9c75c0"
+            ]
+        ]
+    },
+    {
+        "id": "cb9c42b9caa2fba3",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Header Post",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": true,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "company_code",
+                "valueType": "other",
+                "valueValue": "ACT0062"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 770,
+        "y": 420,
+        "wires": [
+            [
+                "74dff1d42989016f",
+                "3db3d57a1b76fe7a"
+            ]
+        ]
+    },
+    {
+        "id": "b7c233b48b6d35c3",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Headers Mapping",
+        "func": "let drawdown_data = msg.drawdown_data;\nlet loan_app_id = drawdown_data.loanTerm.bankProvidedLoanCode;\nlet data=msg.payload;\nlet res = msg.drawdown_response;\nconst BANK_URL = env.get('BANK_URL')\nconst BANK_TOKEN = env.get('BANK_TOKEN')\n\nmsg.payload= {\n    \"loan_app_id\": loan_app_id ,\n    \"drawdown_request_id\": res.data.drawdown_request_id  ,\n    \"doc\":[\n        {\n            \"code\":\"102\",\n            \"base64pdfencodedfile\": data\n        }\n    ]\n}\nmsg.headers = {\n    \"Authorization\": `Bearer ${BANK_TOKEN}`\n};\nmsg.method = \"POST\";\nmsg.url = `${BANK_URL}/api/drawdown-document`;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 420,
+        "wires": [
+            [
+                "cb9c42b9caa2fba3"
+            ]
+        ]
+    },
+    {
+        "id": "b3e6f344018c5e36",
+        "type": "inject",
+        "z": "11c67ca4c279e3fe",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "7b8e3c7bee39ae34"
+            ]
+        ]
+    },
+    {
+        "id": "74dff1d42989016f",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0be9b59d576bcd36",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "drawdown respose id",
+        "func": "msg.drawdown_response=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "dce050736d01772d"
+            ]
+        ]
+    },
+    {
+        "id": "dce050736d01772d",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "invoice generation",
+        "func": "let data = msg.drawdown_data;\nlet obj=[\n    `\n\n    <div id=\"invoice-POS\">\n\n        <center id=\"top\">\n            <div class=\"logo\"></div>\n            <div class=\"info\">\n                <h2>Invoice</h2>\n            </div>\n        </center>\n\n\n\n        <div id=\"table\">\n            <table style=\"text-align: left; width: 60%; border: 1px solid black;\">\n                <tr>\n                    <th style=\"padding: 10px;\">Invoice Number</th>\n                    <td>${data.invoice.finalInvoiceNo}</td>\n                </tr>\n\n                <tr>\n                    <th style=\"padding: 10px;\">Invoice Generation Date</th>\n                    <td>${data.invoice.documentDate}</td>\n                </tr>\n\n                <tr>\n                    <th style=\"padding: 10px;\">Due Date</th>\n                    <td>${data.invoice.dueDate}</td>\n                </tr>\n                <tr>\n                    <th style=\"padding: 10px;\">Anchor Code</th>\n                    <td>${data.invoice.dueDate}</td>\n                </tr>\n                <tr>\n                    <th style=\"padding: 10px;\">Total Invoice</th>\n                    <td>${data.invoice.netAmount}</td>\n                </tr>\n\n            </table>\n        </div>\n\n    `\n]\nmsg.payload =obj;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "nodeHtmlParser",
+                "module": "node-html-parser"
+            }
+        ],
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "c4dee0c6c03f631d"
+            ]
+        ]
+    },
+    {
+        "id": "c4dee0c6c03f631d",
+        "type": "html-to-pdf",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "format": "A4",
+        "zoom": 100,
+        "orientation": "Portrait",
+        "width": "",
+        "height": "",
+        "marginTop": 1,
+        "marginLeft": 1,
+        "marginBottom": 1,
+        "marginRight": 1,
+        "marginTopUnits": "cm",
+        "marginLeftUnits": "cm",
+        "marginBottomUnits": "cm",
+        "marginRightUnits": "cm",
+        "omitBackground": false,
+        "printGraphics": true,
+        "x": 910,
+        "y": 280,
+        "wires": [
+            [
+                "88fe56913f621777"
+            ]
+        ]
+    },
+    {
+        "id": "88fe56913f621777",
+        "type": "base64",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "79a229cde47c69ea",
+                "b7c233b48b6d35c3"
+            ]
+        ]
+    },
+    {
+        "id": "7b8e3c7bee39ae34",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL')\nconst EMAIL=env.get(\"EMAIL\");\nconst PASSWORD = env.get(\"PASSWORD\")\n\nconsole.log(ADMIN_URL);\n\nmsg.headers = {}\nmsg.method = \"POST\"\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,//Arthmate Email\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 40,
+        "wires": [
+            [
+                "32204f1c3dfc9296"
+            ]
+        ]
+    },
+    {
+        "id": "32204f1c3dfc9296",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 40,
+        "wires": [
+            [
+                "f893ae5487b86f4e"
+            ]
+        ]
+    },
+    {
+        "id": "cd145f88e52e80c6",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 500,
+        "wires": [
+            [
+                "a82d1779214894df",
+                "389022340336084f"
+            ]
+        ]
+    },
+    {
+        "id": "3db3d57a1b76fe7a",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "updateDrawdownReq",
+        "func": "let drawdown_response = msg.drawdown_response;\nlet drawdown_data = msg.drawdown_data;\nconst token=flow.get('token');\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown`\nmsg.method = 'PATCH'\nmsg.headers={\n    \"Authorization\": `Bearer ${token.idToken}`\n}\nmsg.payload = {\n    requestUniqueCode: drawdown_data.loanDrawdown.requestUniqueCode,\n    drawdownStatus: 'inProgress',\n    bankProvidedDrawdownCodes: drawdown_response.data.drawdown_request_id.toString() \n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "cd145f88e52e80c6"
+            ]
+        ]
+    },
+    {
+        "id": "389022340336084f",
+        "type": "function",
+        "z": "11c67ca4c279e3fe",
+        "name": "updateHoldAmountReq",
+        "func": "let drawdown_data = msg.drawdown_data;\nconst token=flow.get('token');\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/hold-amount`\nmsg.method = 'POST'\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`\n}\n\nmsg.payload = {\n    \"loanDetails\": [\n        {\n            \"loanID\": msg.payload.loanID,\n            \"holdAmount\": Number(drawdown_data.loanDrawdown.requestAmount)\n        }\n    ],\n    \"update\": true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 580,
+        "wires": [
+            [
+                "6735d205dd36b66d"
+            ]
+        ]
+    },
+    {
+        "id": "6735d205dd36b66d",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "6629cb6a44f92a28"
+            ]
+        ]
+    },
+    {
+        "id": "6629cb6a44f92a28",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "Completed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a82d1779214894df",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a98c39701246622c",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9d666d31961f0baa",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "79a229cde47c69ea",
+        "type": "debug",
+        "z": "11c67ca4c279e3fe",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "33f5bad4fcfb8561",
+        "type": "http request",
+        "z": "11c67ca4c279e3fe",
+        "name": "Drawdown Post",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": true,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "company_code",
+                "valueType": "other",
+                "valueValue": "ACT0062"
+            },
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 640,
+        "y": 200,
+        "wires": [
+            [
+                "9d666d31961f0baa",
+                "0be9b59d576bcd36"
+            ]
+        ]
+    },
+    {
+        "id": "5ce04892db46d684",
+        "type": "http in",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "url": "/response-drawdown",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "419606cdc47fb213"
+            ]
+        ]
+    },
+    {
+        "id": "3a368ea88fa6635d",
+        "type": "http response",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "419606cdc47fb213",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "check for header",
+        "func": "const ARTHMATE_KEY = env.get('ARTHMATE_KEY');\nconst ARTHMATE_VALUE = env.get('ARTHMATE_VALUE');\n\nlet data= {...msg};\nlet headers=data.req.rawHeaders;\nlet key =\"Authorization\";\nlet value = \"Bearer WaBgTPMYVCVbGnmmtdQ2UZuCWcKYBu\"\nlet idx=indexof(headers,key);\n\nif (headers[idx+1]===value)\n    return msg;\nelse{\n    msg.payload={\n        \"success\":false,\n        \"message\":\"Bad request\"\n    }\n    return msg;\n}\n\nfunction indexof(headers,key){\n    let  length = headers.length;\n    for (let index = 0; index < length / 2; index += 2) {\n        if (headers[index] === key) {\n            return index;\n        }\n        if (headers[length - 2 - index] === key) {\n            return length - 2 - index;\n        }\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 60,
+        "wires": [
+            [
+                "f72edbed385148af"
+            ]
+        ]
+    },
+    {
+        "id": "f72edbed385148af",
+        "type": "switch",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "d344c06c4044d665"
+            ],
+            [
+                "1e88e1feea5d42b6"
+            ]
+        ]
+    },
+    {
+        "id": "d344c06c4044d665",
+        "type": "http response",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Bad Request",
+        "statusCode": "400",
+        "headers": {},
+        "x": 670,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bd4696441c1e7f86",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Mapping Drawdown",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\nlet data = msg.drawdown_data;\nlet drawdown_response = msg.drawdown_response;\nlet token=flow.get(\"token\");\n\nmsg.url = `${PAYLATER_URL}/v1/loan-drawdown`;\nmsg.method = 'PATCH';\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\n\nmsg.payload={};\n\nif (drawdown_response.data.status_code === \"30\") {\n    msg.payload = {\n        \"requestUniqueCode\": data[0].requestUniqueCode,\n        \"drawdownStatus\": \"paid\",\n        \"disbursedAmount\": drawdown_response.data.net_disbur_amt,\n    }\n} else {\n    msg.payload = {\n        \"requestUniqueCode\": data[0].requestUniqueCode,\n        \"drawdownStatus\": \"failed\",\n   }\n}\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 660,
+        "wires": [
+            [
+                "d9237eb0fade40e7"
+            ]
+        ]
+    },
+    {
+        "id": "d9237eb0fade40e7",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Update Drawdown",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 710,
+        "y": 660,
+        "wires": [
+            [
+                "dc409b5a540c68c5",
+                "5bcc9b845b7b62b6"
+            ]
+        ]
+    },
+    {
+        "id": "1e88e1feea5d42b6",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL');\nconst EMAIL=env.get('EMAIL');\nconst PASSWORD=env.get('PASSWORD');\n\nmsg.drawdown_response = msg.payload;\nmsg.headers = {};\nmsg.method = \"POST\";\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "1dd3ed36a7f896d8"
+            ]
+        ]
+    },
+    {
+        "id": "1dd3ed36a7f896d8",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "e37cd153e33cc252"
+            ]
+        ]
+    },
+    {
+        "id": "e37cd153e33cc252",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "search for drawdown",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\nflow.set(\"token\", msg.payload);\nlet data=msg.payload;\nlet drawdown_response = msg.drawdown_response;\n// console.log(\"dvdf\",msg.drawdown_response);\nmsg.url =`${PAYLATER_URL}/v1/loan-drawdown/fetch`;\nmsg.method=\"POST\";\nmsg.payload={\n    \"bankProvidedDrawdownCodes\": drawdown_response.data.request_id.toString()\n}\nmsg.headers={\n    \"Authorization\":`Bearer ${data.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "1be0904b6809846b"
+            ]
+        ]
+    },
+    {
+        "id": "1be0904b6809846b",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 220,
+        "wires": [
+            [
+                "f202c2e4c5a1791f",
+                "0c185559c9eefe7e"
+            ]
+        ]
+    },
+    {
+        "id": "dbe454f0a4893b30",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "response",
+        "func": "let data=msg;\n\nlet drawdown_response = msg.drawdown_response;\n\nif(data.statusCode===201){\n    let status = data.drawdownStatus;\n    msg.statusCode=200\n    msg.payload={\n        \"status\":status,\n        \"data\":drawdown_response.data\n    }\n    return msg;\n}\nelse{\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 840,
+        "wires": [
+            [
+                "3a368ea88fa6635d"
+            ]
+        ]
+    },
+    {
+        "id": "8023c14f5f54d0e7",
+        "type": "http response",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Not Found",
+        "statusCode": "404",
+        "headers": {},
+        "x": 870,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0c185559c9eefe7e",
+        "type": "switch",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "property": "payload.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "fe43c764f9d3b9ca"
+            ],
+            [
+                "6c696c5c7a4980b7"
+            ]
+        ]
+    },
+    {
+        "id": "dc409b5a540c68c5",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "f202c2e4c5a1791f",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5bcc9b845b7b62b6",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "callCashApplicationSP",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\nconst token=flow.get(\"token\");\n\nmsg.drawdownStatus=msg.payload.drawdownStatus\nmsg.url = `${PAYLATER_URL}/v1/cash-application/sp`\nmsg.method = 'POST'\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\n\nmsg.payload = {\n    transactionDate: new Date().toISOString().split('T')[0] // 2023-01-28\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 720,
+        "wires": [
+            [
+                "e3bb023b4266cd34"
+            ]
+        ]
+    },
+    {
+        "id": "4698051a825cc7cb",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "callDailyLedgerSP",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL')\nconst token=flow.get(\"token\");\n\nmsg.url = `${PAYLATER_URL}/v1/daily-ledger/sp`\nmsg.method = 'POST'\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\n\nmsg.payload = {\n    transactionDate: new Date().toISOString().split('T')[0] // 2023-01-28\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 780,
+        "wires": [
+            [
+                "abe8f42a34d6cfed"
+            ]
+        ]
+    },
+    {
+        "id": "e3bb023b4266cd34",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 710,
+        "y": 720,
+        "wires": [
+            [
+                "4698051a825cc7cb",
+                "b7590adcac9358dd"
+            ]
+        ]
+    },
+    {
+        "id": "abe8f42a34d6cfed",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 780,
+        "wires": [
+            [
+                "dbe454f0a4893b30",
+                "101f152150e9a5eb"
+            ]
+        ]
+    },
+    {
+        "id": "b7590adcac9358dd",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "101f152150e9a5eb",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "1717903c62a8c95e",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "checking event",
+        "func": "let data=msg.payload;\nlet drawdown_response = msg.drawdown_response;\nlet loanid = data[0].crnNumber.split('|');\n\n\nif (drawdown_response.event_key === \"disbursement\" && drawdown_response.data.loan_id===loanid[1])\n    return msg;\nelse{\n    msg.payload = {\n        \"success\": false,\n        \"message\": \"Not Found\"   \n    }\n    msg.statusCode=404\n    return msg;\n}\n    ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 580,
+        "wires": [
+            [
+                "daa86b9f000f736f"
+            ]
+        ]
+    },
+    {
+        "id": "daa86b9f000f736f",
+        "type": "switch",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "7405e2e26cb71500"
+            ],
+            [
+                "bd4696441c1e7f86"
+            ]
+        ]
+    },
+    {
+        "id": "7405e2e26cb71500",
+        "type": "http response",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Bad Request",
+        "statusCode": "",
+        "headers": {},
+        "x": 910,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "fe43c764f9d3b9ca",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Message",
+        "func": "msg.payload={\n    \"success\":false,\n    \"message\":\"Drawdown Not Found\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "8023c14f5f54d0e7"
+            ]
+        ]
+    },
+    {
+        "id": "6c696c5c7a4980b7",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Search Bank Application",
+        "func": "const GO_URL = env.get('GO_URL');\n\nlet drawdown_response = msg.drawdown_response;\nmsg.drawdown_data=msg.payload;\n\nmsg.url = `${GO_URL}/bank-application/${drawdown_response.data.partner_loan_id}`;\nmsg.method = \"GET\";\nmsg.payload = {};\nmsg.headers = {};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "54c653e371add473"
+            ]
+        ]
+    },
+    {
+        "id": "54c653e371add473",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 360,
+        "wires": [
+            [
+                "e904746def401161",
+                "3cda13a8c90c61b2"
+            ]
+        ]
+    },
+    {
+        "id": "e904746def401161",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2e34e83979d2bdbe",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "search Loan Term",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\n\nlet token = flow.get('token');\nlet data=msg.payload;\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/fetch`;\nmsg.method = \"POST\";\nmsg.payload = {\n    \"borrowerID\": data.businessPartner,\n    \"enterpriseID\": data.enterprise,\n    \"bankID\": data.bankID,\n    \"toMask\": false\n}\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 500,
+        "wires": [
+            [
+                "00ea54db1a82af22",
+                "eea5f27f7c6713ab"
+            ]
+        ]
+    },
+    {
+        "id": "00ea54db1a82af22",
+        "type": "http request",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 500,
+        "wires": [
+            [
+                "eea5f27f7c6713ab",
+                "1717903c62a8c95e"
+            ]
+        ]
+    },
+    {
+        "id": "eea5f27f7c6713ab",
+        "type": "debug",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3cda13a8c90c61b2",
+        "type": "switch",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "",
+        "property": "payload.statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "500",
+                "vt": "num"
+            },
+            {
+                "t": "neq",
+                "v": "500",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 440,
+        "wires": [
+            [
+                "bd0156dd3caf1f36"
+            ],
+            [
+                "2e34e83979d2bdbe"
+            ]
+        ]
+    },
+    {
+        "id": "18f90592e116f461",
+        "type": "http response",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Bad Request",
+        "statusCode": "",
+        "headers": {},
+        "x": 930,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "bd0156dd3caf1f36",
+        "type": "function",
+        "z": "0d4b3cabb57ddaa4",
+        "name": "Msg",
+        "func": "msg.payload = {\n    \"success\": false,\n    \"message\": \"Not Found\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "18f90592e116f461"
+            ]
+        ]
+    },
+    {
+        "id": "4e5ada0d49b1a62b",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "Start",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "47381047c94dcdd7"
+            ]
+        ]
+    },
+    {
+        "id": "7e66acb1ddd3eb95",
+        "type": "alafile in",
+        "z": "960d24c4a5017d1d",
+        "name": "cashfree file",
+        "filename": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red\\Subscription Payment Reports",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 1070,
+        "y": 80,
+        "wires": [
+            [
+                "4a98675c548b0d07"
+            ]
+        ]
+    },
+    {
+        "id": "4a2ccbfaa39f5eb6",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "47381047c94dcdd7",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "Authorization Paylater",
+        "func": "msg.headers = {}\nmsg.method = \"POST\"\nmsg.url = \"https://actyv-platform-admin-service.qa.actyv.com/api/user/authenticateUser\";\nmsg.payload = {\n    \"email\": \"surajkumar@aplapollo.com\",//Arthmate Email\n    \"password\": \"890ioP@12\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 80,
+        "wires": [
+            [
+                "30cf75c220224a52"
+            ]
+        ]
+    },
+    {
+        "id": "30cf75c220224a52",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 80,
+        "wires": [
+            [
+                "17b492a58984ad25"
+            ]
+        ]
+    },
+    {
+        "id": "17b492a58984ad25",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "token mapping",
+        "func": "flow.set(\"token\",msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 80,
+        "wires": [
+            [
+                "7e66acb1ddd3eb95"
+            ]
+        ]
+    },
+    {
+        "id": "4a98675c548b0d07",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "each row in excel",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.length; index++) {\n    node.send({payload:data[index]});  \n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "e301521247ba984f"
+            ]
+        ]
+    },
+    {
+        "id": "e301521247ba984f",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "searching fromm UMRN",
+        "func": "flow.set(\"trx_details\",msg.payload);\nconst token=flow.get(\"token\");\nflow.set(\"transaction_data\",msg.payload);\nlet data = msg.payload;\n\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`\n}\nmsg.url =`https://actyv-platform-paylater-service-v1.dev.actyv.com/v1/mandates?mandateReferenceNo=${data.UMRN}`;\nmsg.method=\"GET\";\nmsg.payload={};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "5dfa232b9e286e3a"
+            ]
+        ]
+    },
+    {
+        "id": "5dfa232b9e286e3a",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "GET BP",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 180,
+        "wires": [
+            [
+                "0a7c4f317d72cd7b"
+            ]
+        ]
+    },
+    {
+        "id": "0a7c4f317d72cd7b",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "searching loan term",
+        "func": "let data=msg.payload;\nconst token=flow.get(\"token\");\n\nmsg.url =\"https://actyv-platform-paylater-service-v1.qa.actyv.com/v1/loan-terms/fetch\";\nmsg.method=\"POST\";\nmsg.headers={\n    \"Aurhorization\":`Bearer ${token.idToken}`\n}\nmsg.payload={\n    \"borrowerID\": data.businessPartnerID \n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "d65001b9f0248d22"
+            ]
+        ]
+    },
+    {
+        "id": "d65001b9f0248d22",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "get loan term",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [
+                "8d2224e2b6a73d46"
+            ]
+        ]
+    },
+    {
+        "id": "8d2224e2b6a73d46",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "creating loan-payment",
+        "func": "let data=msg.payload;\nconst token=flow.get(\"token\");\nconst transaction_data = flow.get(\"transaction_data\");\n\nconst loan_id = data.crnNumber.split('|');\n\nmsg.url =\"https://actyv-platform-paylater-service-v1.qa.actyv.com/v1/loan-payment\";\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`\n};\nmsg.payload={\n    \"loanID\": \"xxxx-xxxx-xxxx\", //data.loanid[0]\n    \"drawdownID\": \"xxxx-xxxx-xxxx\",\n    \"amount\": 1000000, //Number(`${transaction_data.Amount}`)\n    \"date\": \"2011-04-11T10:20:30Z\",\n    \"paymentMethod\": \"Cash\", //${ transaction_data.Payment Mode}\n    \"fromAccount\": \"123412341234\", //${ transaction_data.Bank Account Number}\n    \"principal\": 100000,//Number(`${transaction_data.Amount}`)\n    \"interest\": 0,\n    \"balance\": 0\n}\nmsg.method=\"POST\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 340,
+        "wires": [
+            [
+                "40540fd0ca61179b"
+            ]
+        ]
+    },
+    {
+        "id": "2f3a84524d390e27",
+        "type": "comment",
+        "z": "960d24c4a5017d1d",
+        "name": "gmail",
+        "info": "",
+        "x": 90,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e5c20a56a3a4f05a",
+        "type": "comment",
+        "z": "960d24c4a5017d1d",
+        "name": "outllook",
+        "info": "",
+        "x": 70,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "40540fd0ca61179b",
+        "type": "http request",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 730,
+        "y": 340,
+        "wires": [
+            [
+                "4a2ccbfaa39f5eb6"
+            ]
+        ]
+    },
+    {
+        "id": "10d52e235a58640f",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "required",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "c780cf1f0a288c72"
+            ]
+        ]
+    },
+    {
+        "id": "f5dbecada56cb090",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "10d52e235a58640f"
+            ]
+        ]
+    },
+    {
+        "id": "eaec5e6c0376ec75",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c780cf1f0a288c72",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 8",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg.attachments[0]);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 520,
+        "wires": [
+            [
+                "31865ab30fb6b82c"
+            ]
+        ]
+    },
+    {
+        "id": "31865ab30fb6b82c",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 10",
+        "func": "let data=msg.content;\n\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "7d8ea538a0378abe"
+            ]
+        ]
+    },
+    {
+        "id": "7d8ea538a0378abe",
+        "type": "book",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": false,
+        "x": 950,
+        "y": 520,
+        "wires": [
+            [
+                "5d504bbb97c750ed"
+            ]
+        ]
+    },
+    {
+        "id": "5d504bbb97c750ed",
+        "type": "sheet",
+        "z": "960d24c4a5017d1d",
+        "name": "OUTSTANDING",
+        "sheetName": "Sheet1",
+        "x": 500,
+        "y": 580,
+        "wires": [
+            [
+                "7565945a848b43a4"
+            ]
+        ]
+    },
+    {
+        "id": "7565945a848b43a4",
+        "type": "sheet-to-json",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 730,
+        "y": 580,
+        "wires": [
+            [
+                "eaec5e6c0376ec75"
+            ]
+        ]
+    },
+    {
+        "id": "fa7f09e3956783cf",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 900,
+        "wires": [
+            [
+                "0cc7f0451db7e05c"
+            ]
+        ]
+    },
+    {
+        "id": "0cc7f0451db7e05c",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "outlook.office365.com",
+        "useSSL": true,
+        "autotls": "always",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 430,
+        "y": 900,
+        "wires": [
+            [
+                "dbfe62b1643c1cd5"
+            ]
+        ]
+    },
+    {
+        "id": "273ecf328b5d191e",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "dbfe62b1643c1cd5",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "email filtering on cashfree email",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg.attachments[0]);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 900,
+        "wires": [
+            [
+                "88cf6d745eee06fa"
+            ]
+        ]
+    },
+    {
+        "id": "88cf6d745eee06fa",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "sending buffer for reading excel",
+        "func": "let data=msg.content;\n\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 900,
+        "wires": [
+            [
+                "daacae864f0666b5"
+            ]
+        ]
+    },
+    {
+        "id": "daacae864f0666b5",
+        "type": "book",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": false,
+        "x": 490,
+        "y": 980,
+        "wires": [
+            [
+                "09c112b2027054c0"
+            ]
+        ]
+    },
+    {
+        "id": "09c112b2027054c0",
+        "type": "sheet",
+        "z": "960d24c4a5017d1d",
+        "name": "Cashfree",
+        "sheetName": "Sheet1",
+        "x": 660,
+        "y": 980,
+        "wires": [
+            [
+                "4ecd5f19d96b3b56"
+            ]
+        ]
+    },
+    {
+        "id": "4ecd5f19d96b3b56",
+        "type": "sheet-to-json",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 850,
+        "y": 980,
+        "wires": [
+            [
+                "273ecf328b5d191e"
+            ]
+        ]
+    },
+    {
+        "id": "50824ac0c5840f4b",
+        "type": "e-mail in",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "required",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "None",
+        "criteria": "UNSEEN",
+        "repeat": "300",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 410,
+        "y": 800,
+        "wires": [
+            [
+                "56f7d828ecd01fe2"
+            ]
+        ]
+    },
+    {
+        "id": "dfafda9c687256f3",
+        "type": "inject",
+        "z": "960d24c4a5017d1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 800,
+        "wires": [
+            [
+                "50824ac0c5840f4b"
+            ]
+        ]
+    },
+    {
+        "id": "ae4e324860eca9ce",
+        "type": "debug",
+        "z": "960d24c4a5017d1d",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "56f7d828ecd01fe2",
+        "type": "function",
+        "z": "960d24c4a5017d1d",
+        "name": "function 9",
+        "func": "if (msg.from ===\"Ayush.Garg.intern@actyv.com\")\n    node.send(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 800,
+        "wires": [
+            [
+                "ae4e324860eca9ce"
+            ]
+        ]
+    },
+    {
+        "id": "d314dafeac5ab0d6",
+        "type": "inject",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "c8771255cb2072b2"
+            ]
+        ]
+    },
+    {
+        "id": "2f020f55e41a224f",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 100,
+        "wires": [
+            [
+                "78113ae4b869e918",
+                "7246ef9ded8092a5"
+            ]
+        ]
+    },
+    {
+        "id": "78113ae4b869e918",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "fetching loan-term from bankid",
+        "func": "flow.set(\"token\",msg.payload);\nconst token=msg.payload;\nconst PAYLATER_URL = env.get(\"PAYLATER_URL\");\nconst BANK_ID = env.get('BANK_ID');\n\nmsg.url =`${PAYLATER_URL}/v1/loan-terms/fetch`;\nmsg.method=\"POST\";\nmsg.payload = {\n    \"bankID\": BANK_ID,\n    \"toMask\": false\n}\nmsg.headers={\n    \"Authorization\":`Bearer ${token.idToken}`,\n    \"bankid\": BANK_ID\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "d8699978b4e01c73"
+            ]
+        ]
+    },
+    {
+        "id": "d8699978b4e01c73",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 710,
+        "y": 180,
+        "wires": [
+            [
+                "9e02ae0afb9962d1",
+                "9cedb02742ba3ddd"
+            ]
+        ]
+    },
+    {
+        "id": "9cedb02742ba3ddd",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "for each loan term",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.length; index++) {\n    if (data[index].loanGrantStatus===\"APPROVED\")\n        node.send({payload:data[index]})\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "11c579f1976586d9"
+            ]
+        ]
+    },
+    {
+        "id": "11c579f1976586d9",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "fetching loan status",
+        "func": "msg.loan_term = msg.payload;\nconst data=msg.payload;\nlet loanid = data.crnNumber.split('|');\nconst BANK_URL = env.get('BANK_URL');\n\nmsg.url = `${BANK_URL}/api/credit-limit-data/${loanid[1]}`\nmsg.headers={\n    \"Authorization\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoxMjUxNTIsImNvbXBhbnlfY29kZSI6IkFDVDAwNjIiLCJwcm9kdWN0X2lkIjoxMjU0MDUsInVzZXJfaWQiOjEzODgsInVzZXJfbmFtZSI6IlJhaiBWaWtyYW0gU2luZ2giLCJ0eXBlIjoiYXBpIiwibG9hbl9zY2hlbWFfaWQiOiIxMjU0MDQiLCJjcmVkaXRfcnVsZV9ncmlkX2lkIjpudWxsLCJhdXRvbWF0aWNfY2hlY2tfY3JlZGl0IjowLCJ0b2tlbl9pZCI6IjEyNTE1Mi0xMjU0MDUtMTY3NDExOTc5MjE3MSIsImVudmlyb25tZW50Ijoic2FuZGJveCIsImlhdCI6MTY3NDExOTc5Mn0.Ns_zmbALCnwM4gSqsyX7VmEdS53-yYkPXN1En-ZOOzc\",\n    \"company_code\": \"ACT0062\"\n}\nmsg.method=\"GET\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "dc3340a969190ffe"
+            ]
+        ]
+    },
+    {
+        "id": "dc3340a969190ffe",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 300,
+        "wires": [
+            [
+                "0de2baa24dceb295",
+                "df8350ba74e44b52"
+            ]
+        ]
+    },
+    {
+        "id": "ae10c010ad10eefc",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "0de2baa24dceb295",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "updating loan amount",
+        "func": "const token = flow.get(\"token\");\nlet loan_term=msg.loan_term;\nlet data = msg.payload;\nconst PAYLATER_URL = env.get('PAYLATER_URL');\n\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/update`;\nmsg.method = \"PATCH\";\nmsg.payload = {\n    \"loanTermsID\": loan_term.id,\n    \"loanAmount\": Number(msg.payload.data[\"Credit limit\"]) - Number(msg.payload.data[\"Available balance\"])\n};\nmsg.headers = {\n     \"Authorization\": `Bearer ${token.idToken}`,\n     \"bankID\":env.get('BANK_ID')\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "1ad21e0ef28d5f6c"
+            ]
+        ]
+    },
+    {
+        "id": "1ad21e0ef28d5f6c",
+        "type": "http request",
+        "z": "5f1d3c1c9df93591",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 670,
+        "y": 360,
+        "wires": [
+            [
+                "ae10c010ad10eefc"
+            ]
+        ]
+    },
+    {
+        "id": "9e02ae0afb9962d1",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c8771255cb2072b2",
+        "type": "function",
+        "z": "5f1d3c1c9df93591",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL')\nconst EMAIL=env.get(\"EMAIL\");\nconst PASSWORD = env.get(\"PASSWORD\")\n\n\nmsg.headers = {}\nmsg.method = \"POST\"\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,//Arthmate Email\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 100,
+        "wires": [
+            [
+                "2f020f55e41a224f"
+            ]
+        ]
+    },
+    {
+        "id": "df8350ba74e44b52",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7246ef9ded8092a5",
+        "type": "debug",
+        "z": "5f1d3c1c9df93591",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "cd9de31949d5aaec",
+        "type": "inject",
+        "z": "fd98b309e3e30b8d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "00c0144eb1c24243"
+            ]
+        ]
+    },
+    {
+        "id": "f6eac3f92a68972e",
+        "type": "html-to-pdf",
+        "z": "fd98b309e3e30b8d",
+        "name": "",
+        "format": "A4",
+        "zoom": 100,
+        "orientation": "Portrait",
+        "width": "",
+        "height": "",
+        "marginTop": 1,
+        "marginLeft": 1,
+        "marginBottom": 1,
+        "marginRight": 1,
+        "marginTopUnits": "cm",
+        "marginLeftUnits": "cm",
+        "marginBottomUnits": "cm",
+        "marginRightUnits": "cm",
+        "omitBackground": false,
+        "printGraphics": true,
+        "x": 550,
+        "y": 40,
+        "wires": [
+            [
+                "bd5442ba18782bd0"
+            ]
+        ]
+    },
+    {
+        "id": "bd5442ba18782bd0",
+        "type": "base64",
+        "z": "fd98b309e3e30b8d",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 760,
+        "y": 40,
+        "wires": [
+            [
+                "0c56c5fc64dcd9c2"
+            ]
+        ]
+    },
+    {
+        "id": "00c0144eb1c24243",
+        "type": "function",
+        "z": "fd98b309e3e30b8d",
+        "name": "get image",
+        "func": "let file_id =\"1f4f03e2-e977-43fe-82b5-1aca2adaf8a0-MISCELLANEOUS_DOCUMENT_ADDRESS_PROOF_FORM\"\nlet url = \"https://actyv-platform-go-service.qa.actyv.com/api/file/read/\"+file_id;\n\n// fetch('https://',{headers: {hello:'World!'}}).then(r=>r.blob()).then(d=> this.src=window.URL.createObjectURL(d));\nlet data =`\"fetch('${url}').then(r => r.blob()).then(d => this.src = window.URL.createObjectURL(d))\"`;\nconsole.log(data);\nlet obj=[\n    `\n        <img src onerror=${data}/>\n    `\n]\nmsg.payload =obj;\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "nodeHtmlParser",
+                "module": "node-html-parser"
+            }
+        ],
+        "x": 340,
+        "y": 40,
+        "wires": [
+            [
+                "f6eac3f92a68972e"
+            ]
+        ]
+    },
+    {
+        "id": "0b7d192eb8e7532f",
+        "type": "debug",
+        "z": "fd98b309e3e30b8d",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0c56c5fc64dcd9c2",
+        "type": "file",
+        "z": "fd98b309e3e30b8d",
+        "name": "",
+        "filename": "C:\\Users\\Ayush Rarg\\OneDrive - actyv.ai\\Desktop\\node-red\\1.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "0b7d192eb8e7532f"
+            ]
+        ]
+    },
+    {
+        "id": "1158c7686a0ca369",
+        "type": "http in",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "url": "/set-limit",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "c39425193d89de5d"
+            ]
+        ]
+    },
+    {
+        "id": "c39425193d89de5d",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "check for header",
+        "func": "const ARTHMATE_KEY = env.get('ARTHMATE_KEY');\nconst ARTHMATE_VALUE = env.get('ARTHMATE_VALUE');\n\nlet data = { ...msg };\nlet headers = data.req.rawHeaders;\nlet key = \"Authorization\";\nlet value = \"Bearer WaBgTPMYVCVbGnmmtdQ2UZuCWcKYBu\"\nlet idx = indexof(headers, key);\n\nif (headers[idx + 1] === value)\n    return msg;\nelse {\n    msg.payload = {\n        \"success\": false,\n        \"message\": \"Bad request\"\n    }\n    return msg;\n}\n\nfunction indexof(headers, key) {\n    let length = headers.length;\n    for (let index = 0; index < length / 2; index += 2) {\n        if (headers[index] === key) {\n            return index;\n        }\n        if (headers[length - 2 - index] === key) {\n            return length - 2 - index;\n        }\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 60,
+        "wires": [
+            [
+                "49ba7e4437f51537"
+            ]
+        ]
+    },
+    {
+        "id": "49ba7e4437f51537",
+        "type": "switch",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "f5c31eae57778351"
+            ],
+            [
+                "ae735da4c9ee9f2b"
+            ]
+        ]
+    },
+    {
+        "id": "f5c31eae57778351",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "Bad Request",
+        "statusCode": "400",
+        "headers": {},
+        "x": 710,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a8d73a6fe436b16e",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "response",
+        "statusCode": "",
+        "headers": {},
+        "x": 560,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "48649575e6c78c57",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a8e352b7662d7499",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "Authorization Paylater",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL');\nconst EMAIL = env.get('EMAIL');\nconst PASSWORD = env.get('PASSWORD');\n\nmsg.loan_details = msg.payload;\nmsg.headers = {};\nmsg.method = \"POST\";\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload = {\n    \"email\": EMAIL,\n    \"password\": PASSWORD\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "04f60d832378f4af"
+            ]
+        ]
+    },
+    {
+        "id": "04f60d832378f4af",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "Requesting Authorization",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "29410162961b1cf1",
+                "6c9ccd10a3088b3f"
+            ]
+        ]
+    },
+    {
+        "id": "089795912f81f826",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "updating loanterm",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\nlet data=msg.payload;\nlet token=msg.token;\nlet limit_details = msg.limit_details;\nlet loan_details=msg.loan_details;\n\nmsg.url =`${PAYLATER_URL}/v1/loan-terms/update`;\nmsg.method=\"PATCH\";\nmsg.payload={\n    \"loanTermsID\": data[0].id,\n    \"approvedLimit\": limit_details.data.credit_limit,\n    \"bankProvidedLoanCodes\": loan_details.loanDetails.loan_app_id,\n    \"crnNumber\": `${loan_details.loanDetails.borrower_id}|${loan_details.loanDetails.loan_id}`,\n    \"loanGrantStatus\": \"APPROVED\"\n}\nmsg.headers={\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "abe981cd43413d87"
+            ]
+        ]
+    },
+    {
+        "id": "abe981cd43413d87",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "48649575e6c78c57",
+                "ca28a19c5479df1a"
+            ]
+        ]
+    },
+    {
+        "id": "ca28a19c5479df1a",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "response",
+        "func": "let data=msg;\nlet limit_details = msg.limit_details;\n\nif(data.statusCode===200){\n    msg.payload={\n        \"status\":\"success\",\n        \"data\":limit_details.data\n    }\n    return msg;\n} \nelse\n    return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "a8d73a6fe436b16e"
+            ]
+        ]
+    },
+    {
+        "id": "29410162961b1cf1",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ae735da4c9ee9f2b",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "event checking",
+        "func": "let data=msg.payload;\nif (data.event_key === \"set_limit\")\n    return msg;\nelse {\n    msg.payload = {\n        \"success\": false,\n        \"message\": \"Bad request\"\n    }\n    msg.statusCode = 404\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "44df259f9b0a139e"
+            ]
+        ]
+    },
+    {
+        "id": "44df259f9b0a139e",
+        "type": "switch",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "property": "payload.success",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "neq",
+                "v": "false",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "8c5d6491e6abc6e5"
+            ],
+            [
+                "394c023b9109f192"
+            ]
+        ]
+    },
+    {
+        "id": "8c5d6491e6abc6e5",
+        "type": "http response",
+        "z": "697914ea6929b76f",
+        "name": "Bad Request",
+        "statusCode": "404",
+        "headers": {},
+        "x": 810,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6c9ccd10a3088b3f",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "Search Bank Application",
+        "func": "msg.token=msg.payload;\nconst GO_URL = env.get('GO_URL');\n\nlet limit_details = msg.limit_details;\n\nmsg.url = `${GO_URL}/bank-application/${limit_details.data.partner_loan_id}`;\nmsg.method = \"GET\";\nmsg.payload = {};\nmsg.headers = {};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "7be33828e47aee46"
+            ]
+        ]
+    },
+    {
+        "id": "7be33828e47aee46",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 360,
+        "wires": [
+            [
+                "847ddc5f37571121",
+                "01e86d5b42cc230a"
+            ]
+        ]
+    },
+    {
+        "id": "847ddc5f37571121",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "01e86d5b42cc230a",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "search Loan Term",
+        "func": "const PAYLATER_URL = env.get('PAYLATER_URL');\n\n\nlet token = msg.token;\nlet limit_details = msg.limit_details;\nlet data=msg.payload;\n\nmsg.url = `${PAYLATER_URL}/v1/loan-terms/fetchByBankID`;\nmsg.method = \"POST\";\nmsg.payload = {\n    \"borrowerID\": data.businessPartner,\n    \"enterpriseID\": data.enterprise,\n    \"bankID\": data.bankID\n}\nmsg.headers = {\n    \"Authorization\": `Bearer ${token.idToken}`,\n    \"bankId\": env.get('BANK_ID')\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 420,
+        "wires": [
+            [
+                "b1b579735cf046aa"
+            ]
+        ]
+    },
+    {
+        "id": "b1b579735cf046aa",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "089795912f81f826",
+                "268c08ddcf992a44"
+            ]
+        ]
+    },
+    {
+        "id": "268c08ddcf992a44",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "394c023b9109f192",
+        "type": "function",
+        "z": "697914ea6929b76f",
+        "name": "getting loan details from bank",
+        "func": "const ARTHMATE_LINK = env.get('ARTHMATE_LINK');\nmsg.limit_details = msg.payload;\nlet arthmate_token = env.get('BANK_TOKEN');\nlet limit_details = msg.limit_details;\n\n\nmsg.url = `${ARTHMATE_LINK}/loan/${limit_details.data.loan_id}`;\nmsg.method = \"GET\";\n\nmsg.headers = {\n    \"Authorization\": `Bearer ${arthmate_token}`\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "d0bdfc787ddd412a"
+            ]
+        ]
+    },
+    {
+        "id": "d0bdfc787ddd412a",
+        "type": "http request",
+        "z": "697914ea6929b76f",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "a8e352b7662d7499",
+                "106f402845ca0cc0"
+            ]
+        ]
+    },
+    {
+        "id": "106f402845ca0cc0",
+        "type": "debug",
+        "z": "697914ea6929b76f",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ce71966e826c3022",
+        "type": "node-red-contrib-graph-oauth-login",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "scope": "https://graph.microsoft.com/.default",
+        "redirecturi": "",
+        "code": "",
+        "encoding": false,
+        "logintype": "Application",
+        "refreshtimer": "11",
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "9932cf512576575c"
+            ]
+        ]
+    },
+    {
+        "id": "e7f888bde985d836",
+        "type": "inject",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "ce71966e826c3022"
+            ]
+        ]
+    },
+    {
+        "id": "9932cf512576575c",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "Get All Messages",
+        "func": "let data=msg.payload;\nflow.set(\"token\",data);\nlet userID =\"1870cd49-a831-4b52-ba5e-b680441f9f70\"\nlet sender =\"from:gargayush456@gmail.com\"\n\nmsg.url = `https://graph.microsoft.com/v1.0/users/${userID}/messages?$search=\"from:gargayush456@gmail.com\"&?$filter=isRead ne true`\nmsg.method=\"GET\";\nmsg.headers={\n    \"Authorization\":`${data.access_token}`\n}\nconsole.log(msg.url);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "b688c76f94e69988"
+            ]
+        ]
+    },
+    {
+        "id": "b688c76f94e69988",
+        "type": "http request",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "f7ee57f4049d4fe7"
+            ]
+        ]
+    },
+    {
+        "id": "180450dd827a9bd4",
+        "type": "inject",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f7ee57f4049d4fe7",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "77eba3647569b879",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "Searching Attachment",
+        "func": "let data = msg.payload;\nlet token=flow.get(\"token\");\nflow.set(\"msg\",data);\nmsg.url = `https://graph.microsoft.com/v1.0/users/1870cd49-a831-4b52-ba5e-b680441f9f70/messages/${data.id}/attachments`\nmsg.method = \"GET\";\nmsg.headers = {\n    \"Authorization\": `${token.access_token}`\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "94290557d0118fcc"
+            ]
+        ]
+    },
+    {
+        "id": "94290557d0118fcc",
+        "type": "http request",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "43696fbdd1f182fb",
+                "35f8ae484ca09c36"
+            ]
+        ]
+    },
+    {
+        "id": "43696fbdd1f182fb",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6ad04ec9ea34da77",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "each Msg",
+        "func": "let data=msg.payload;\n\nfor (let index = 0; index < data.value.length; index++) {\n    node.send({payload:data.value[index]});\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "77eba3647569b879"
+            ]
+        ]
+    },
+    {
+        "id": "063b81d1fb5e6fac",
+        "type": "debug",
+        "z": "330c5d9d398acad5",
+        "name": "debug 41",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "225b4580a01c8cde",
+        "type": "book",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "raw": false,
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "31e50b51027b0ce9"
+            ]
+        ]
+    },
+    {
+        "id": "31e50b51027b0ce9",
+        "type": "sheet",
+        "z": "330c5d9d398acad5",
+        "name": "Cashfree",
+        "sheetName": "Sheet1",
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "bc265486a98f3849"
+            ]
+        ]
+    },
+    {
+        "id": "bc265486a98f3849",
+        "type": "sheet-to-json",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "raw": "false",
+        "range": "",
+        "header": "default",
+        "blankrows": false,
+        "x": 690,
+        "y": 380,
+        "wires": [
+            [
+                "063b81d1fb5e6fac"
+            ]
+        ]
+    },
+    {
+        "id": "35f8ae484ca09c36",
+        "type": "function",
+        "z": "330c5d9d398acad5",
+        "name": "function 16",
+        "func": "let data=msg.payload;\n\nmsg.payload = data.value[0].contentBytes.toString();\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "75e1404272b71f05"
+            ]
+        ]
+    },
+    {
+        "id": "75e1404272b71f05",
+        "type": "base64",
+        "z": "330c5d9d398acad5",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "225b4580a01c8cde"
+            ]
+        ]
+    },
+    {
+        "id": "a23f497039814a5c",
+        "type": "inject",
+        "z": "30b913f1f16dc8d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "892f1b8fe032bb51"
+            ]
+        ]
+    },
+    {
+        "id": "892f1b8fe032bb51",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "Awaiting Mandate Applications payload",
+        "func": "const GO_URL = env.get('GO_URL');\nconst bankID = env.get('BANK_ID');\nconst bankApplicationStatus = \"AWAITING_MANDATE_CREATION\";\n\nmsg.headers={};\nmsg.url = `${GO_URL}/bank-application?bankID=${bankID}&applicationStatus=${bankApplicationStatus}`\nmsg.method='GET';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "e469e4058de755ee"
+            ]
+        ]
+    },
+    {
+        "id": "e469e4058de755ee",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "GET Bank Applications",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 700,
+        "y": 100,
+        "wires": [
+            [
+                "e2c9cbb2df0d1d73",
+                "41cfc607cd16029c"
+            ]
+        ]
+    },
+    {
+        "id": "e2c9cbb2df0d1d73",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 42",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "41cfc607cd16029c",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "each applicaton",
+        "func": "const applications=msg.payload;\n\napplications.forEach(function(application) {\n    node.send({payload:application});\n});\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "b9bd52d6c1048fee"
+            ]
+        ]
+    },
+    {
+        "id": "853a17b44b662f73",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 43",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b9bd52d6c1048fee",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "Field Values",
+        "func": "const GO_URL = env.get('GO_URL')\n\nmsg.bankApplication=msg.payload;\n\nmsg.url = `${GO_URL}/business-partner/allData/${msg.payload.businessPartnerID}`\nmsg.method='GET';\nmsg.headers={\n    \"x-actyv-api-config-key\": env.get('X_ACTYV_API_CONFIG_KEY')\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 240,
+        "wires": [
+            [
+                "c22c1e96596c1a71"
+            ]
+        ]
+    },
+    {
+        "id": "c22c1e96596c1a71",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "GET BP Field Values",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 500,
+        "y": 240,
+        "wires": [
+            [
+                "853a17b44b662f73",
+                "482e4b8bc3e3d41e"
+            ]
+        ]
+    },
+    {
+        "id": "482e4b8bc3e3d41e",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "mandate payload",
+        "func": "msg.allData=msg.payload;\n\nconst fieldValueMap=new Map(msg.payload.fieldValues.map((fieldValue)=>[fieldValue.key,fieldValue.value]));\nconst PAYMENT_SERVICE_URL = env.get('PAYMENT_SERVICE_URL');\nconsole.log(fieldValueMap);\n\nmsg.payload={\n    // \"bankID\":msg.bankApplication.bankId,\n    // \"enterpriseID\": msg.bankApplication.enterpriseId,\n    \"mandateType\":\"E_MANDATE\",\n    \"businessPartnerID\": msg.bankApplication.businessPartnerID,\n    \"accountType\": fieldValueMap.get(\"arthmate_account_type\").toUpperCase(),\n    \"bankAccountNumber\": fieldValueMap.get(\"arthmate_bank_account_number\"),\n    \"ifsc\": fieldValueMap.get(\"arthmate_ifsc_code\"),\n    \"branchName\": fieldValueMap.get(\"arthmate_branch_name\"),\n    \"accountHolderName\": fieldValueMap.get(\"arthmate_account_holder_name\"),\n    \"amount\": fieldValueMap.get(\"arthmate_amount\"),\n    \"frequency\": fieldValueMap.get(\"arthmate_frequency\"),\n    \"mobileNumber\": fieldValueMap.get(\"arthmate_mobile_no\"),\n    \"emailAddress\": fieldValueMap.get(\"arthmate_email_id\"),\n    \"bankCode\": fieldValueMap.get(\"arthmate_ifsc_code\").substring(0,4),\n    \"returnUrl\":env.get('LOGIN_URL'),\n    \"validFrom\": fieldValueMap.get(\"arthmate_valid_from\") ||'2023-02-05  00:00:00',\n    \"validTill\": fieldValueMap.get(\"arthmate_valid_till\") || '9999-02-05  00:00:00',\n}\n\nmsg.method='POST';\nmsg.headers={};\nmsg.url=`${PAYMENT_SERVICE_URL}/actyv/createMandate`\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "2cbd5a2f6174122d"
+            ]
+        ]
+    },
+    {
+        "id": "90af3eb60c111569",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 44",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "81bdb886c504946d",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "update camunda variable",
+        "func": "const CAMUNDA_BASE_URL = env.get(\"CAMUNDA_BASE_URL\")\n\nconst variableName = \"mandate_id\"\n\nmsg.mandate=msg.payload;\n\nmsg.url = `${CAMUNDA_BASE_URL}/engine-rest/process-instance/${msg.bankApplication.workflowTaskID}/variables/${variableName}`\nmsg.method = 'PUT',\nmsg.payload = { value: msg.payload.actyvID }\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "7508c96c030630ae"
+            ]
+        ]
+    },
+    {
+        "id": "7508c96c030630ae",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Updating Camunda Flow",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 400,
+        "wires": [
+            [
+                "ddd93d02876fe7f4",
+                "e70064847f7370b5"
+            ]
+        ]
+    },
+    {
+        "id": "2afcf98f6bc7f3ae",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "User Login",
+        "func": "const ADMIN_URL = env.get('ADMIN_URL');\n\nmsg.method='POST';\nmsg.headers={};\nmsg.url = `${ADMIN_URL}/api/user/authenticateUser`;\nmsg.payload={\n    \"email\": env.get('EMAIL'),\n    \"password\":env.get(\"PASSWORD\")\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 520,
+        "wires": [
+            [
+                "381834c8906a7a64"
+            ]
+        ]
+    },
+    {
+        "id": "381834c8906a7a64",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Authenticate User",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 520,
+        "wires": [
+            [
+                "ee41f4328513c16f",
+                "9a32da6eed097193"
+            ]
+        ]
+    },
+    {
+        "id": "ee41f4328513c16f",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "Adding Field Values",
+        "func": "const GO_URL = env.get('GO_URL');\n\nconst bpid = msg.bankApplication.businessPartnerID;\n\nmsg.url =`${GO_URL}/field-value`;\nmsg.headers={\n    \"Authorization\":`Bearer ${msg.payload.idToken}`,\n    \"businessPartnerId\": bpid\n};\nmsg.method='POST';\nmsg.payload={\n    \"businessPartnerId\": bpid,\n    \"key\":\"arthmate_mandate_actyvID\",\n    \"value\":msg.mandate.actyvID,\n    \"bankApplicationId\": msg.bankApplication._id\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 600,
+        "wires": [
+            [
+                "69e386decf3d86d0"
+            ]
+        ]
+    },
+    {
+        "id": "69e386decf3d86d0",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Added Field Value",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 600,
+        "wires": [
+            [
+                "d139b916f34947e6"
+            ]
+        ]
+    },
+    {
+        "id": "d139b916f34947e6",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 45",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "ddd93d02876fe7f4",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 46",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9a32da6eed097193",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "2cbd5a2f6174122d",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Create Mandate",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "90af3eb60c111569",
+                "81bdb886c504946d"
+            ]
+        ]
+    },
+    {
+        "id": "e70064847f7370b5",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "update camunda variable",
+        "func": "const CAMUNDA_BASE_URL = env.get(\"CAMUNDA_BASE_URL\")\n\nconst variableName = \"mandate_id_action\"\n\nmsg.url = `${CAMUNDA_BASE_URL}/engine-rest/process-instance/${msg.bankApplication.workflowTaskID}/variables/${variableName}`\nmsg.method = 'PUT',\nmsg.payload = { value: msg.mandate.actyvID }\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "890761eebf91cf98"
+            ]
+        ]
+    },
+    {
+        "id": "890761eebf91cf98",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Updating Camunda Flow",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 460,
+        "wires": [
+            [
+                "2afcf98f6bc7f3ae",
+                "f1cfdd33a9295cfc"
+            ]
+        ]
+    },
+    {
+        "id": "f1cfdd33a9295cfc",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 48",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b69fcfe301dfad63",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "update camunda variable",
+        "func": "const CAMUNDA_BASE_URL = env.get(\"CAMUNDA_BASE_URL\")\n\nconst variableName = \"mandate_id_action\"\nconst workflowTaskID ='5ff770f4-efc9-11ed-abd1-0242ac110002'\n\nmsg.url = `${CAMUNDA_BASE_URL}/engine-rest/process-instance/${workflowTaskID}/variables/${variableName}`\nmsg.method = 'PUT',\nmsg.payload = { value: \"c2dde878-efc2-11ed-abd1-0242ac110002\" }\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 760,
+        "wires": [
+            [
+                "4214a4a628a1c807"
+            ]
+        ]
+    },
+    {
+        "id": "4214a4a628a1c807",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Updating Camunda Flow",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 690,
+        "y": 760,
+        "wires": [
+            [
+                "629302e0dd4b49e4"
+            ]
+        ]
+    },
+    {
+        "id": "629302e0dd4b49e4",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 49",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "7e01650dadf2ea20",
+        "type": "inject",
+        "z": "30b913f1f16dc8d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "b69fcfe301dfad63"
+            ]
+        ]
+    },
+    {
+        "id": "879c90bb34e5809d",
+        "type": "function",
+        "z": "30b913f1f16dc8d1",
+        "name": "update camunda variable",
+        "func": "const CAMUNDA_BASE_URL = env.get(\"CAMUNDA_BASE_URL\")\n\nconst variableName = \"email\"\nconst workflowTaskID ='5ff770f4-efc9-11ed-abd1-0242ac110002'\n\nmsg.url = `${CAMUNDA_BASE_URL}/engine-rest/process-instance/${workflowTaskID}/variables/${variableName}`\nmsg.method = 'PUT',\nmsg.payload = { value: \"ayush.garg.intern@actyv.com\" }\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 860,
+        "wires": [
+            [
+                "adfddc583728a5f9"
+            ]
+        ]
+    },
+    {
+        "id": "adfddc583728a5f9",
+        "type": "http request",
+        "z": "30b913f1f16dc8d1",
+        "name": "Updating Camunda Flow",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 690,
+        "y": 860,
+        "wires": [
+            [
+                "1fbb648ac76e89dd"
+            ]
+        ]
+    },
+    {
+        "id": "1fbb648ac76e89dd",
+        "type": "debug",
+        "z": "30b913f1f16dc8d1",
+        "name": "debug 50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "1043f78a6dfa530b",
+        "type": "inject",
+        "z": "30b913f1f16dc8d1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 860,
+        "wires": [
+            [
+                "879c90bb34e5809d"
+            ]
+        ]
+    }
+]
